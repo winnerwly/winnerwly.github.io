@@ -3,44 +3,440 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Winnerwly的个人网站</title>
+    <title>Winnerwly | Creative Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --bg-color: #050505;
+            --text-main: #f0f0f0;
+            --text-muted: #888888;
+            --accent: #d4ff00; /* 荧光黄/绿，带来极强的视觉冲击力 */
+            --card-bg: #111111;
+            --card-border: #222222;
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            box-sizing: border-box;
         }
-        header {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 1em 0;
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
-        main {
-            max-width: 800px;
-            margin: 2em auto;
-            padding: 0 1em;
+
+        ::selection {
+            background-color: var(--accent);
+            color: var(--bg-color);
         }
+
+        /* 噪点纹理叠加层，增加质感 */
+        .noise {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        section {
+            padding: 8rem 5% 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 首屏区域 */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .hero h1 span {
+            display: block;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--text-muted);
+            transition: all 0.5s ease;
+        }
+
+        .hero h1 span:hover {
+            color: var(--accent);
+            -webkit-text-stroke: 1px var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: transparent;
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid var(--text-muted);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+            z-index: -1;
+        }
+
+        .btn:hover {
+            color: var(--bg-color);
+            border-color: var(--accent);
+            box-shadow: 0 10px 20px rgba(212, 255, 0, 0.2);
+        }
+
+        .btn:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* 项目展示区 */
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 1rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, rgba(212, 255, 0, 0.1), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: #333;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        .project-card:hover::after {
+            opacity: 1;
+        }
+
+        .project-year {
+            font-family: 'Syne', sans-serif;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-family: 'Syne', sans-serif;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            flex-grow: 1;
+        }
+
+        .project-link {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            align-self: flex-start;
+        }
+
+        .project-link:hover {
+            color: var(--accent);
+        }
+
+        .project-link svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-link:hover svg {
+            transform: translateX(5px) translateY(-5px);
+        }
+
+        /* 页脚 */
         footer {
+            padding: 5rem 5% 3rem;
             text-align: center;
-            padding: 1em 0;
-            background-color: #333;
-            color: white;
+            border-top: 1px solid var(--card-border);
+            margin-top: 6rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .social-links a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        /* 动画类 */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-up {
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero {
+                min-height: 80vh;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>欢迎来到Winnerwly的个人网站</h1>
-    </header>
-    <main>
-        <p>这是我的个人网站首页。欢迎访问！</p>
-        <p>这里可以放置您的内容、博客、项目展示等。</p>
-    </main>
-    <footer>
-        <p>&copy; 2026 Winnerwly. All rights reserved.</p>
+    <div class="noise"></div>
+    
+    <nav>
+        <a href="#" class="logo">WINNERWLY.</a>
+        <div class="nav-links">
+            <a href="#about">关于</a>
+            <a href="#projects">项目</a>
+            <a href="#contact">联系我</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="about">
+        <h1 class="animate-up">
+            Creative 
+            <span class="delay-1">Developer</span>
+        </h1>
+        <p class="animate-up delay-2">你好，我是 Winnerwly。我致力于构建兼具视觉冲击力与极致交互体验的现代 Web 应用与数字产品。</p>
+        <div class="animate-up delay-3">
+            <a href="#projects" class="btn">查看我的作品</a>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">精选项目</h2>
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <span class="project-year">2026</span>
+                <h3 class="project-title">开源工具箱</h3>
+                <p class="project-desc">一款集合了多种开发者常用小工具的跨平台桌面应用，基于 Electron 和 React 构建，注重极速响应与暗黑模式 UI。</p>
+                <a href="https://github.com/winnerwly" target="_blank" class="project-link">
+                    查看详情 
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+            <!-- Project 2 -->
+            <div class="project-card">
+                <span class="project-year">2025</span>
+                <h3 class="project-title">个人博客系统</h3>
+                <p class="project-desc">使用 Next.js 与 Tailwind CSS 开发的静态博客生成器，拥有极致的 SEO 优化与 Lighthouse 满分性能。</p>
+                <a href="https://github.com/winnerwly" target="_blank" class="project-link">
+                    查看详情 
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+            <!-- Project 3 -->
+            <div class="project-card">
+                <span class="project-year">2024</span>
+                <h3 class="project-title">UI 组件库</h3>
+                <p class="project-desc">一套轻量级、高度可定制的 Vue 3 业务组件库，为企业级中后台提供一致的设计语言与交互规范。</p>
+                <a href="https://github.com/winnerwly" target="_blank" class="project-link">
+                    查看详情 
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="social-links">
+            <a href="https://github.com/winnerwly" target="_blank">GitHub</a>
+            <a href="#">Twitter</a>
+            <a href="#">LinkedIn</a>
+            <a href="mailto:hello@example.com">Email</a>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Winnerwly. Designed & Built with passion.</p>
     </footer>
+
+    <script>
+        // 添加简单的滚动监听动画，使项目卡片在进入视口时平滑显示
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = `fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards`;
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.project-card').forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(40px)';
+                // 交错动画延迟
+                card.style.animationDelay = `${index * 0.15}s`;
+                observer.observe(card);
+            });
+        });
+    </script>
 </body>
 </html>
