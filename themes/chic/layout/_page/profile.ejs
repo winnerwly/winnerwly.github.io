@@ -1,23 +1,74 @@
-<div class="container">
-    <div class="intro">
-        <div class="avatar">
-            <a href="javascript:void(0);"><img src="<%- url_for(theme.avatar) %>"></a>
-        </div>
-        <div class="nickname"><%- theme.nickname %></div>
-        <div class="description"><%- markdown(theme.description) %></div>
-        <div class="links">
-            <% if (theme.links !== undefined) { %>
-                <% for (var key in theme.links){ %>
-                    <a class="link-item" title="<%- key %>" href="<%= theme.links[key] %>">
-                        <% if(theme.links_text_enable) { %>
-                            <%= key %>
-                        <%}%>
-                        <%if(theme.links_icon_enable){ %>
-                            <i class="iconfont icon-<%- key.toLowerCase() %>"></i>
-                        <%}%>
-                    </a>
+<div class="container home-shell">
+    <section class="intro">
+        <div class="intro-copy">
+            <div class="intro-kicker">SYSTEM READY · FRONTEND ENGINEER</div>
+            <h1 class="nickname">
+                <span>MR.W</span>
+                <span>BUILDS</span>
+                <span>INTERFACES</span>
+            </h1>
+            <div class="intro-summary">构建高性能、强交互、具有审美表达的前端体验。</div>
+            <div class="description"><%- markdown(theme.description) %></div>
+            <div class="intro-actions">
+                <a class="action-btn action-btn-primary" href="<%- url_for('/archives/') %>">READ LOGS</a>
+                <% if (theme.links && theme.links.Github) { %>
+                    <a class="action-btn" href="<%= theme.links.Github %>" target="_blank" rel="noopener noreferrer">SOURCE CODE</a>
                 <% } %>
-            <% } %>
+                <a class="action-btn action-btn-ghost" href="<%- url_for('/about/') %>">ABOUT ME</a>
+            </div>
+            <div class="intro-telemetry">
+                <span>POSTS <strong><%= site.posts.length %></strong></span>
+                <span>TAGS <strong><%= site.tags.length %></strong></span>
+                <span>CATEGORIES <strong><%= site.categories.length %></strong></span>
+                <span>MODE <strong>SHIP</strong></span>
+            </div>
+            <div class="links">
+                <% if (theme.links !== undefined) { %>
+                    <% for (var key in theme.links){ %>
+                        <a class="link-item" title="<%- key %>" aria-label="<%- key %>" href="<%= theme.links[key] %>" <% if (/^https?:\/\//.test(theme.links[key])) { %>target="_blank" rel="noopener noreferrer"<% } %>>
+                            <%if(theme.links_icon_enable){ %>
+                                <i class="iconfont icon-<%- key.toLowerCase() %>"></i>
+                            <%}%>
+                        </a>
+                    <% } %>
+                <% } %>
+            </div>
+            <div class="intro-scroll">SCROLL TO READ</div>
         </div>
-    </div>
+        <div class="intro-visual">
+            <div class="hero-panel">
+                <div class="hero-panel-head">
+                    <span>PROFILE / ACTIVE</span>
+                    <span>LOCALHOST</span>
+                </div>
+                <div class="hero-panel-main">
+                    <a class="avatar" href="<%- url_for('/about/') %>">
+                        <img src="<%- url_for(theme.avatar) %>" alt="<%- theme.nickname %> avatar">
+                    </a>
+                    <div class="terminal-card">
+                        <div class="terminal-bar">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="terminal-body">
+                            <div><span class="terminal-prefix">$</span> npm run build</div>
+                            <div><span class="terminal-prefix">></span> optimize interaction pipeline</div>
+                            <div><span class="terminal-prefix">></span> shape clean component systems</div>
+                            <div><span class="terminal-prefix">></span> deliver polished frontend stories</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-posts">
+                    <div class="hero-posts-title">LATEST LOGS</div>
+                    <% site.posts.sort('date', -1).limit(3).each(function(post){ %>
+                        <a class="hero-post-item" href="<%- url_for(post.path) %>">
+                            <span class="hero-post-date"><%- date(post.date, 'YYYY.MM.DD') %></span>
+                            <span class="hero-post-name"><%- post.title %></span>
+                        </a>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>

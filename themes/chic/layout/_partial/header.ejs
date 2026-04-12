@@ -4,10 +4,13 @@
       <div class="navbar-header header-logo">
         <a href="<%- config.root %>"><%= theme.navname %></a>
       </div>
-      <div class="menu navbar-right">
-        <% for (var i in theme.nav){ %>
-        <a class="menu-item" href="<%- url_for(theme.nav[i]) %>"><%= i %></a>
-        <% } %>
+      <div class="navbar-actions">
+        <div class="menu navbar-right">
+          <% for (var i in theme.nav){ %>
+          <a class="menu-item" href="<%- url_for(theme.nav[i]) %>"><%= i %></a>
+          <% } %>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" type="button">DARK</button>
       </div>
 
     </div>
@@ -19,7 +22,7 @@
       <div class="navbar-header">
         <div>
           <a href="<%- config.root %>"><%= theme.navname %></a>
-          <a style="display: none;" id="mobile-toggle-theme">·&nbsp;Light</a>
+          <button class="theme-toggle theme-toggle-mobile" id="mobile-toggle-theme" type="button">DARK</button>
         </div>
         <div class="menu-toggle" onclick="mobileBtn()">&#9776;</div>
       </div>

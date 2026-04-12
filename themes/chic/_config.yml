@@ -12,14 +12,14 @@ nav:
   友链: /friends/
 
 # favicon
-favicon: https://img.wangliuyin.top/30-075659_977.jpg
+favicon: /img/favicon-tech.svg
 
 # Profile
 nickname: Mr.w
 
 ### this variable is MarkDown form.
 description: 你无需告诉每个人，那一个个艰难的日子是如何熬过来的。大多数人都看你飞得高不高，很少人在意你飞得累不累
-avatar: https://img.wangliuyin.top/30-075659_977.jpg
+avatar: /img/avatar-schnauzer-original.svg
 
 # main menu navigation
 ## links key words should not be changed.

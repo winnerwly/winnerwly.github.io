@@ -4,5 +4,5 @@ date: 2019-12-29 20:30:58
 layout: ins
 ---
 
-![照片](./img/01.png)
-![照片](./img/02.png)
+![照片](/ins/img/01.png)
+![照片](/ins/img/02.png)
