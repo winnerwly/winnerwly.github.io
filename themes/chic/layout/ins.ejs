@@ -1,0 +1,26 @@
+<div class="container">
+    <article class="post-wrap page">
+        <% if(theme.page_title_enable){ %>
+        <h2 class="post-title">- 照片墙 -</h2>
+        <% } %>
+        <section>
+            <div class="ins-content">
+                <%- page.content %>
+            </div>
+        </section>
+    </article>
+</div>
+
+<style>
+    .ins-content {
+        user-select: none;
+    }
+
+    .ins-content p img {
+        box-sizing: border-box;
+        border: 5px solid #e3e3e3;
+        width: 100%;
+        background-color: #e3e3e3;
+        object-fit: contain;
+    }
+</style>
