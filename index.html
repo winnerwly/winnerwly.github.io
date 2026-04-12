@@ -1,442 +1,793 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Winnerwly | Creative Developer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <title>Rey Dwan (winnerwly) — 极客实验室</title>
+    
+    <!-- 引入炫酷的科幻风格和极客字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Fira+Code:wght@400;600&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-color: #050505;
-            --text-main: #f0f0f0;
-            --text-muted: #888888;
-            --accent: #d4ff00; /* 荧光黄/绿，带来极强的视觉冲击力 */
-            --card-bg: #111111;
-            --card-border: #222222;
+            --bg-color: #030305;
+            --surface-color: rgba(15, 15, 20, 0.6);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --neon-primary: #00ffcc;
+            --neon-secondary: #bc13fe;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            
+            --font-display: 'Orbitron', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            --font-sans: 'Noto Sans SC', sans-serif;
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
+            font-family: var(--font-sans);
             line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        ::selection {
-            background-color: var(--accent);
-            color: var(--bg-color);
-        }
+        /* 自定义光标 (已移除) */
 
-        /* 噪点纹理叠加层，增加质感 */
-        .noise {
+        /* 动态背景 Canvas */
+        #bg-canvas {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.03;
-            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -1;
+            opacity: 0.4;
         }
 
+        /* 顶部导航毛玻璃效果 */
         nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 1.5rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2rem 5%;
-            position: fixed;
-            top: 0;
-            width: 100%;
             z-index: 100;
-            mix-blend-mode: difference;
+            background: rgba(3, 3, 5, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .logo {
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
+            font-family: var(--font-display);
             font-size: 1.5rem;
-            letter-spacing: -1px;
-            color: var(--text-main);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--neon-primary);
         }
 
         .nav-links a {
-            color: var(--text-main);
+            color: var(--text-muted);
             text-decoration: none;
+            font-family: var(--font-mono);
             font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-left: 2rem;
+            transition: all 0.3s ease;
             position: relative;
-            transition: color 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: var(--accent);
+            color: var(--neon-primary);
+            text-shadow: 0 0 8px var(--neon-primary);
         }
 
-        section {
-            padding: 8rem 5% 4rem;
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px; left: 0;
+            width: 0; height: 2px;
+            background: var(--neon-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* 主容器 */
+        main {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 8rem 5% 4rem;
         }
 
-        /* 首屏区域 */
+        /* Hero 首屏区 */
         .hero {
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 6rem;
             position: relative;
         }
 
+        .avatar-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 2rem;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--neon-secondary);
+            z-index: 2;
+            position: relative;
+        }
+
+        .avatar-glow {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px; height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--neon-secondary) 0%, transparent 70%);
+            opacity: 0.5;
+            filter: blur(15px);
+            animation: pulse 3s infinite alternate;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.7; }
+        }
+
         .hero h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(3rem, 10vw, 8rem);
-            font-weight: 800;
-            line-height: 1;
-            letter-spacing: -0.03em;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .hero h1 span {
-            display: block;
-            color: transparent;
-            -webkit-text-stroke: 1px var(--text-muted);
-            transition: all 0.5s ease;
+        .typewriter {
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            color: var(--neon-primary);
+            min-height: 2rem;
+            margin-bottom: 2rem;
         }
 
-        .hero h1 span:hover {
-            color: var(--accent);
-            -webkit-text-stroke: 1px var(--accent);
+        .typewriter::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
         }
 
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 500px;
-            margin-bottom: 3rem;
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* GitHub 数据统计卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            margin-bottom: 4rem;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background-color: transparent;
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 600;
-            border: 1px solid var(--text-muted);
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
+        .stat-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
             position: relative;
             overflow: hidden;
         }
 
-        .btn::before {
+        .stat-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--accent);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
-            z-index: -1;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-primary), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s;
         }
 
-        .btn:hover {
-            color: var(--bg-color);
-            border-color: var(--accent);
-            box-shadow: 0 10px 20px rgba(212, 255, 0, 0.2);
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-primary);
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.1);
         }
 
-        .btn:hover::before {
-            transform: scaleX(1);
-            transform-origin: left;
+        .stat-card:hover::before {
+            transform: translateX(100%);
         }
 
-        /* 项目展示区 */
-        .section-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 3rem;
+        .stat-num {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
             text-transform: uppercase;
-            border-bottom: 1px solid var(--card-border);
-            padding-bottom: 1rem;
+            letter-spacing: 1px;
         }
 
+        /* 技能标签区 */
+        .skills-section {
+            margin-bottom: 6rem;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px; left: 50%;
+            transform: translateX(-50%);
+            width: 50px; height: 3px;
+            background: var(--neon-secondary);
+            box-shadow: 0 0 10px var(--neon-secondary);
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .skill-tag {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            transition: all 0.3s;
+        }
+
+        .skill-tag:hover {
+            background: rgba(188, 19, 254, 0.1);
+            border-color: var(--neon-secondary);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(188, 19, 254, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* 炫酷项目卡片区 (Mouse Tracking Glow) */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 2rem;
         }
 
         .project-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 2.5rem;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background-color: rgba(20, 20, 25, 0.5);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            padding: 2rem;
             position: relative;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        /* 鼠标跟随发光效果核心代码 */
+        .project-card::before, .project-card::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+        
+        .project-card::before {
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(0, 255, 204, 0.06), transparent 40%);
+            z-index: 1;
         }
 
         .project-card::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at top right, rgba(212, 255, 0, 0.1), transparent 50%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
+            background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(0, 255, 204, 0.4), transparent 40%);
+            z-index: -1;
         }
 
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: #333;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-        }
-
-        .project-card:hover::after {
+        .project-card:hover::before, .project-card:hover::after {
             opacity: 1;
         }
+        .project-card:hover {
+            border-color: rgba(0, 255, 204, 0.3);
+        }
 
-        .project-year {
-            font-family: 'Syne', sans-serif;
-            color: var(--accent);
-            font-weight: 700;
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 1.5rem;
-            display: block;
-            font-size: 1.1rem;
+            z-index: 2;
+        }
+
+        .folder-icon {
+            color: var(--neon-primary);
+            width: 40px; height: 40px;
+        }
+
+        .github-link {
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+        .github-link:hover {
+            color: #fff;
+            filter: drop-shadow(0 0 5px #fff);
         }
 
         .project-title {
-            font-size: 1.8rem;
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            font-family: 'Syne', sans-serif;
+            color: #fff;
+            z-index: 2;
         }
 
         .project-desc {
+            font-size: 0.95rem;
             color: var(--text-muted);
-            font-size: 1rem;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             flex-grow: 1;
+            z-index: 2;
         }
 
-        .project-link {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            align-self: flex-start;
-        }
-
-        .project-link:hover {
-            color: var(--accent);
-        }
-
-        .project-link svg {
-            width: 18px;
-            height: 18px;
-            transition: transform 0.3s ease;
-        }
-
-        .project-link:hover svg {
-            transform: translateX(5px) translateY(-5px);
-        }
-
-        /* 页脚 */
-        footer {
-            padding: 5rem 5% 3rem;
-            text-align: center;
-            border-top: 1px solid var(--card-border);
-            margin-top: 6rem;
-        }
-
-        .social-links {
+        .project-footer {
             display: flex;
-            justify-content: center;
-            gap: 2.5rem;
-            margin-bottom: 2.5rem;
+            align-items: center;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            z-index: 2;
         }
 
-        .social-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 600;
+        .tech-stack {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .tech-stack span {
+            color: var(--neon-secondary);
+        }
+
+        .project-stats {
+            display: flex;
+            gap: 1rem;
+        }
+        .project-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .view-all-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            color: var(--neon-primary);
+            border: 1px solid var(--neon-primary);
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            position: relative;
+            text-decoration: none;
+            transition: all 0.3s;
         }
 
-        .social-links a::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--accent);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.3s ease;
+        .view-all-btn:hover {
+            background: rgba(0, 255, 204, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+            transform: translateY(-2px);
         }
 
-        .social-links a:hover::after {
-            transform: scaleX(1);
-            transform-origin: left;
+        /* 底部 */
+        footer {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            border-top: 1px solid var(--border-color);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: rgba(0,0,0,0.5);
+            margin-top: 4rem;
         }
 
-        .social-links a:hover {
-            color: var(--accent);
+        .footer-heart {
+            color: #ff3366;
+            animation: beat 1s infinite alternate;
+            display: inline-block;
         }
 
-        /* 动画类 */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes beat {
+            to { transform: scale(1.2); }
         }
 
-        .animate-up {
-            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        /* 滚动出现动画 */
+        .reveal {
             opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
-
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            .hero {
-                min-height: 80vh;
-            }
-            .section-title {
-                font-size: 2rem;
-            }
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="noise"></div>
-    
+
+    <!-- 粒子背景 -->
+    <canvas id="bg-canvas"></canvas>
+
     <nav>
-        <a href="#" class="logo">WINNERWLY.</a>
+        <div class="logo">WINNERWLY</div>
         <div class="nav-links">
-            <a href="#about">关于</a>
-            <a href="#projects">项目</a>
-            <a href="#contact">联系我</a>
+            <a href="#about">关于我</a>
+            <a href="#skills">技能栈</a>
+            <a href="#blog">最新文章</a>
+            <a href="#projects">项目集</a>
+            <a href="https://github.com/winnerwly" target="_blank">GITHUB</a>
         </div>
     </nav>
 
-    <section class="hero" id="about">
-        <h1 class="animate-up">
-            Creative 
-            <span class="delay-1">Developer</span>
-        </h1>
-        <p class="animate-up delay-2">你好，我是 Winnerwly。我致力于构建兼具视觉冲击力与极致交互体验的现代 Web 应用与数字产品。</p>
-        <div class="animate-up delay-3">
-            <a href="#projects" class="btn">查看我的作品</a>
-        </div>
-    </section>
+    <main>
+        <!-- 首屏区 -->
+        <section class="hero reveal" id="about">
+            <div class="avatar-container">
+                <div class="avatar-glow"></div>
+                <img src="https://gitee.com/assets/no_portrait.png" alt="Rey Dwan" class="avatar"> <!-- 如果您在Gitee有头像可以替换为您的Gitee头像URL -->
+            </div>
+            <h1>Rey Dwan</h1>
+            <div class="typewriter" id="typewriter"></div>
+            <p style="color: var(--text-muted); max-width: 600px; margin-bottom: 2rem;">
+                热衷于构建高性能、高颜值的现代 Web 应用程序。专注于前端工程化、UI/UX 动效设计以及开源生态建设。
+            </p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-num">1+</div>
+                    <div class="stat-label">Gitee 仓库数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">5+</div>
+                    <div class="stat-label">总提交次数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">2018</div>
+                    <div class="stat-label">加入年份</div>
+                </div>
+            </div>
+        </section>
 
-    <section id="projects">
-        <h2 class="section-title">精选项目</h2>
-        <div class="projects-grid">
-            <!-- Project 1 -->
-            <div class="project-card">
-                <span class="project-year">2026</span>
-                <h3 class="project-title">开源工具箱</h3>
-                <p class="project-desc">一款集合了多种开发者常用小工具的跨平台桌面应用，基于 Electron 和 React 构建，注重极速响应与暗黑模式 UI。</p>
-                <a href="https://github.com/winnerwly" target="_blank" class="project-link">
-                    查看详情 
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </a>
+        <!-- 技能区 -->
+        <section class="skills-section reveal" id="skills">
+            <h2 class="section-title">技术栈</h2>
+            <div class="skills-container">
+                <div class="skill-tag">JavaScript / TypeScript</div>
+                <div class="skill-tag">Vue.js (Vue 2 & 3)</div>
+                <div class="skill-tag">React / Next.js</div>
+                <div class="skill-tag">Node.js / Express</div>
+                <div class="skill-tag">Vite / Webpack / Gulp</div>
+                <div class="skill-tag">Element-Plus / Ant Design</div>
+                <div class="skill-tag">HTML5 / CSS3 / SCSS</div>
+                <div class="skill-tag">Electron / 桌面端</div>
+                <div class="skill-tag">UI / UX 动效设计</div>
             </div>
-            <!-- Project 2 -->
-            <div class="project-card">
-                <span class="project-year">2025</span>
-                <h3 class="project-title">个人博客系统</h3>
-                <p class="project-desc">使用 Next.js 与 Tailwind CSS 开发的静态博客生成器，拥有极致的 SEO 优化与 Lighthouse 满分性能。</p>
-                <a href="https://github.com/winnerwly" target="_blank" class="project-link">
-                    查看详情 
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </a>
-            </div>
-            <!-- Project 3 -->
-            <div class="project-card">
-                <span class="project-year">2024</span>
-                <h3 class="project-title">UI 组件库</h3>
-                <p class="project-desc">一套轻量级、高度可定制的 Vue 3 业务组件库，为企业级中后台提供一致的设计语言与交互规范。</p>
-                <a href="https://github.com/winnerwly" target="_blank" class="project-link">
-                    查看详情 
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </a>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <footer id="contact">
-        <div class="social-links">
-            <a href="https://github.com/winnerwly" target="_blank">GitHub</a>
-            <a href="#">Twitter</a>
-            <a href="#">LinkedIn</a>
-            <a href="mailto:hello@example.com">Email</a>
-        </div>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Winnerwly. Designed & Built with passion.</p>
+        <!-- 博客区 -->
+        <section id="blog" style="margin-bottom: 6rem;">
+            <div style="text-align: center; margin-bottom: 3rem;" class="reveal">
+                <h2 class="section-title">最新文章</h2>
+            </div>
+            
+            <div class="projects-grid" id="blog-grid">
+                <!-- 文章卡片将由 JS 动态生成 -->
+            </div>
+            <div style="text-align: center; margin-top: 3rem;" class="reveal">
+                <a href="archive.html" class="view-all-btn">查看所有文章</a>
+            </div>
+        </section>
+
+        <!-- 项目区 -->
+        <section id="projects">
+            <div style="text-align: center; margin-bottom: 3rem;" class="reveal">
+                <h2 class="section-title">Gitee Projects</h2>
+            </div>
+            
+            <div class="projects-grid">
+                
+                <!-- 项目卡片 1 -->
+                <a href="https://gitee.com/winnerwly/winnerwly" target="_blank" class="project-card reveal">
+                    <div class="project-header">
+                        <svg class="folder-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                        <div class="github-link"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></div>
+                    </div>
+                    <h3 class="project-title">winnerwly</h3>
+                    <p class="project-desc">个人技术博客网站的源码仓库。包含完整的前端构建产物 (HTML/CSS/JS) 以及相关静态资源，部署在 Gitee Pages。</p>
+                    <div class="project-footer">
+                        <div class="tech-stack">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JS</span>
+                        </div>
+                        <div class="project-stats">
+                            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 2018 - 2019</span>
+                            <span>⭐ 2</span>
+                            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M13 6h3a2 2 0 0 1 2 2v7"></path><line x1="6" y1="9" x2="6" y2="21"></line></svg> 1</span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>由 Rey Dwan 用 <span class="footer-heart">♥</span> 构建</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.5;">© 2026 winnerwly.github.io - 所有系统运行正常。</p>
     </footer>
 
     <script>
-        // 添加简单的滚动监听动画，使项目卡片在进入视口时平滑显示
-        document.addEventListener('DOMContentLoaded', () => {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: "0px 0px -50px 0px"
-            };
+        /* ---------------------------------------------------
+           1. 自定义鼠标光标逻辑 (已移除)
+        --------------------------------------------------- */
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.animation = `fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards`;
-                        observer.unobserve(entry.target);
+        /* ---------------------------------------------------
+           2. 打字机特效 (Hero Section)
+        --------------------------------------------------- */
+        const phrases = [
+            "资深前端工程师",
+            "开源技术爱好者",
+            "UI/UX 动效设计",
+            "Vue & React 架构师"
+        ];
+        let currentPhraseIndex = 0;
+        let currentCharIndex = 0;
+        let isDeleting = false;
+        const typewriterEl = document.getElementById('typewriter');
+
+        function type() {
+            const currentPhrase = phrases[currentPhraseIndex];
+            
+            if(isDeleting) {
+                typewriterEl.textContent = currentPhrase.substring(0, currentCharIndex - 1);
+                currentCharIndex--;
+            } else {
+                typewriterEl.textContent = currentPhrase.substring(0, currentCharIndex + 1);
+                currentCharIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if(!isDeleting && currentCharIndex === currentPhrase.length) {
+                typeSpeed = 2000; // 停顿一会
+                isDeleting = true;
+            } else if(isDeleting && currentCharIndex === 0) {
+                isDeleting = false;
+                currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+        setTimeout(type, 1000);
+
+        /* ---------------------------------------------------
+           3. 卡片鼠标悬停动态辉光追踪 (Mouse Tracking Glow)
+        --------------------------------------------------- */
+        function bindMouseTracking() {
+            document.querySelectorAll(".projects-grid").forEach(grid => {
+                grid.onmousemove = e => {
+                    for(const card of grid.getElementsByClassName("project-card")) {
+                        const rect = card.getBoundingClientRect(),
+                              x = e.clientX - rect.left,
+                              y = e.clientY - rect.top;
+                        card.style.setProperty("--mouse-x", `${x}px`);
+                        card.style.setProperty("--mouse-y", `${y}px`);
                     }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.project-card').forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(40px)';
-                // 交错动画延迟
-                card.style.animationDelay = `${index * 0.15}s`;
-                observer.observe(card);
+                }
             });
+        }
+
+        /* ---------------------------------------------------
+           4. 滚动动画监听 (Scroll Reveal)
+        --------------------------------------------------- */
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // 初始化触发一次
+
+        /* ---------------------------------------------------
+           5. 动态星空/粒子背景
+        --------------------------------------------------- */
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        let particlesArray = [];
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.1;
+                this.speedX = (Math.random() * 1) - 0.5;
+                this.speedY = (Math.random() * 1) - 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
+                if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(0, 255, 204, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        function initParticles() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.width * canvas.height) / 15000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+        
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                
+                // 绘制连线
+                for (let j = i; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 255, 204, ${0.1 - distance/1000})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
         });
+        
+        initParticles();
+        animateParticles();
+
+        /* ---------------------------------------------------
+           6. 动态加载博客文章
+        --------------------------------------------------- */
+        async function loadLatestPosts() {
+            try {
+                const res = await fetch('posts.json');
+                const posts = await res.json();
+                const blogGrid = document.getElementById('blog-grid');
+                
+                // 取前 6 篇文章
+                const latestPosts = posts.slice(0, 6);
+                
+                blogGrid.innerHTML = latestPosts.map(post => `
+                    <a href="article.html?file=${post.id}" class="project-card reveal active">
+                        <div class="project-header">
+                            <svg class="folder-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            <div class="github-link" style="font-size: 0.85rem; font-family: var(--font-mono);">${post.date}</div>
+                        </div>
+                        <h3 class="project-title">${post.title}</h3>
+                        <p class="project-desc">${post.excerpt || '暂无摘要'}</p>
+                        <div class="project-footer">
+                            <div class="tech-stack">
+                                ${post.tags.slice(0, 3).map(tag => `<span>${tag}</span>`).join('')}
+                            </div>
+                        </div>
+                    </a>
+                `).join('');
+                
+                // 重新绑定鼠标发光事件给新生成的卡片
+                bindMouseTracking();
+            } catch(e) {
+                console.error("加载文章失败: ", e);
+            }
+        }
+        
+        function bindMouseTracking() {
+            document.querySelectorAll(".projects-grid").forEach(grid => {
+                grid.onmousemove = e => {
+                    for(const card of grid.getElementsByClassName("project-card")) {
+                        const rect = card.getBoundingClientRect(),
+                              x = e.clientX - rect.left,
+                              y = e.clientY - rect.top;
+                        card.style.setProperty("--mouse-x", `${x}px`);
+                        card.style.setProperty("--mouse-y", `${y}px`);
+                    }
+                }
+            });
+        }
+        
+        loadLatestPosts();
+        bindMouseTracking();
     </script>
 </body>
 </html>

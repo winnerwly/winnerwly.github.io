@@ -1,0 +1,469 @@
+[
+  {
+    "id": "2405241440",
+    "title": "nestjs内存缓存",
+    "date": "2024-05-24 16:40:20",
+    "tags": [
+      "nestjs"
+    ],
+    "excerpt": "配置缓存 ts import { Global, Module } from '@nestjs/common' import { CacheModule } from '@nestjs/cachema..."
+  },
+  {
+    "id": "2405241158",
+    "title": "nestjs本地文件缓存",
+    "date": "2024-05-24 11:59:15",
+    "tags": [
+      "nestjs"
+    ],
+    "excerpt": "配置缓存 ts import { Module } from '@nestjs/common' import { CacheModule } from '@nestjs/cachemanager' i..."
+  },
+  {
+    "id": "2312100125",
+    "title": "消除异步传染性",
+    "date": "2023-12-10 01:25:08",
+    "tags": [
+      "js"
+    ],
+    "excerpt": "消除异步传染性是指在 JavaScript 中处理异步操作时，确保不会出现代码逻辑的混乱或错误。 以下是几种消除异步传染性的常见方法： 使用 async/await：async/await 是 ES2..."
+  },
+  {
+    "id": "2206281100",
+    "title": "执行队列的实现-js",
+    "date": "2022-06-28 11:16:39",
+    "tags": [
+      "js"
+    ],
+    "excerpt": "js class TaskQueue {   constructormax = 3 {     // 最大并发数     this.max = max     // 执行中任务队列     this...."
+  },
+  {
+    "id": "2202131140",
+    "title": "前端面试题[一]",
+    "date": "2022-02-13 11:40:21",
+    "tags": [
+      "前端面试题"
+    ],
+    "excerpt": "描述一下document.load 和 document.ready之间的一个区别  JavaScript中如何检测一个字符串的类型  如何检测一个变量是string类型  描述一下==和===的区别..."
+  },
+  {
+    "id": "2202131126",
+    "title": "关于node脚本中loading的实现",
+    "date": "2022-02-13 11:26:09",
+    "tags": [
+      "node",
+      "shell",
+      "ora"
+    ],
+    "excerpt": "这里的实现使用的是一个npm库 ora 安装ora包 shell npm install ora@5.4.1  or yarn add ora@5.4.1  loading效果 示例 js const..."
+  },
+  {
+    "id": "2201271830",
+    "title": "创建一个压缩图片的的命令行工具",
+    "date": "2022-01-27 18:19:51",
+    "tags": [
+      "node",
+      "shell"
+    ],
+    "excerpt": "这里的压缩是借助了 tinify 的 api 来是实现的 也可以引入本地压缩的库来实现 js !/usr/bin/env node const path = require'path' const f..."
+  },
+  {
+    "id": "2201271813",
+    "title": "平转树和树遍历记录",
+    "date": "2022-01-27 18:14:10",
+    "tags": [
+      "js"
+    ],
+    "excerpt": "递归是最简单的方案,单递归不是最佳的方案  平转树不使用递归 js const arr =    {     \"id\": 3,     \"name\": \"部门3\",     \"pid\": 2   },..."
+  },
+  {
+    "id": "2201251040",
+    "title": "node shell 编程之命令行选择",
+    "date": "2022-01-25 10:40:59",
+    "tags": [
+      "node",
+      "shell"
+    ],
+    "excerpt": "!照片./01.png 要是实现这种效果 可以是用 inquirerhttps://www.npmjs.com/package/inquirer js const inquirer = require..."
+  },
+  {
+    "id": "2112311600",
+    "title": "Vue知识记录-$delete和delete的区别",
+    "date": "2021-12-31 16:07:29",
+    "tags": [
+      "vue",
+      "js"
+    ],
+    "excerpt": "js /   Delete a property and trigger change if necessary.  / export function del target: Array<any |..."
+  },
+  {
+    "id": "2107191425",
+    "title": "Vue 组件通信的几种方式",
+    "date": "2021-07-19 14:25:17",
+    "tags": [
+      "vue"
+    ],
+    "excerpt": "组件传参的几种方式  props和$emit父组件向子组件传递数据是通过props传递，子组件传递数据给父组件是通过$emit触发事件传递  $parent和$children获取当前组件的父组件和当..."
+  },
+  {
+    "id": "2101051026",
+    "title": "关于egg-jwt中间件全部配置的记录",
+    "date": "2021-01-05 10:27:04",
+    "tags": [
+      "egg",
+      "egg-jwt"
+    ],
+    "excerpt": "安装 eggjwt 插件 bash npm install eggjwt save  或者 yarn add eggjwt  添加全局配置 js // /app/config/plugin.js jw..."
+  },
+  {
+    "id": "2007231248",
+    "title": "关于flex布局的一些记录",
+    "date": "2020-07-23 12:48:12",
+    "tags": [
+      "flex",
+      "css"
+    ],
+    "excerpt": "容器的属性  flexdirection 控制主轴的方向  row默认值   主轴为水平方向, 起点在左端  rowreverse   主轴为水平方向,起点有右端  column   主轴为垂直方向,..."
+  },
+  {
+    "id": "2007222016",
+    "title": "关于变量提升与函数声明提前的一些记录",
+    "date": "2020-07-22 20:17:00",
+    "tags": [
+      "js"
+    ],
+    "excerpt": "变量提升 简单理解: 使用一个没有定义的变量浏览是会报错的, 但是在变量声明之前使用变量是不会报错的. 这里就是因为变量提升机制. 注: 变量提升只会提升变量名的声明, 而不会提升变量的赋值初始化. ..."
+  },
+  {
+    "id": "2007212002",
+    "title": "关于Promise的一些记录",
+    "date": "2020-07-21 20:02:59",
+    "tags": [
+      "js",
+      "promise"
+    ],
+    "excerpt": "Promise.prototype.then MDN文档https://developer.mozilla.org/zhCN/docs/Web/JavaScript/Reference/Global_..."
+  },
+  {
+    "id": "2004241642",
+    "title": "关于手写实现 call apply bind",
+    "date": "2020-04-24 16:42:39",
+    "tags": [
+      "js"
+    ],
+    "excerpt": "Call 的原理 MDNhttps://developer.mozilla.org/zhCN/docs/Web/JavaScript/Reference/Global_Objects/Function..."
+  },
+  {
+    "id": "2002122155",
+    "title": "js事件循环",
+    "date": "2020-02-12 21:55:52",
+    "tags": [
+      "js"
+    ],
+    "excerpt": "原理简述 1 所有的同步任务都在主线程上执行,这形成了一个执行栈 2 主线程之外还存在一个消息队列,只要异步任务执行完成就会到消息队列中排队 3 一旦执行栈中所有的同步任务执行完成,系统就会按先入先出..."
+  },
+  {
+    "id": "2002112007",
+    "title": "前端性能优化,提高页面响应速度",
+    "date": "2020-02-11 20:07:21",
+    "tags": [
+      "性能优化"
+    ],
+    "excerpt": "前端性能优化一般来说分为三个部分  第一部分 代码质量 代码质量好的代码必然决定着页面性能的效果, 这部分过于重要, 这部分直接关系着页面的反应效果, 好在现在有很多的框架 vue, react, a..."
+  },
+  {
+    "id": "2002101430",
+    "title": "关于ES6中的async的一些理解",
+    "date": "2020-02-10 14:30:57",
+    "tags": [
+      "js",
+      "async"
+    ],
+    "excerpt": "async 本质上其实是generator函数的一层封装,是一个语法糖  async函数与generator函数的区别 1 <b内置了执行器</b generator函数需要执行器才能被调用,而asy..."
+  },
+  {
+    "id": "0000000001",
+    "title": "0000000001",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: Hexo， 你好！我来了\r date: 20180511 23:43:59\r tags: \"hello\"\r category: 开篇\r \r \r  很早以前就知道Hexo了，但是那时候对这..."
+  },
+  {
+    "id": "1805120800",
+    "title": "1805120800",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 奇怪的BUG\r date: 20180512 08:00:00\r tags: \"bug\"\r category: 2018\r \r \r  今天遇到一个的一个bug很奇怪\r \r 项目直接复制是..."
+  },
+  {
+    "id": "1805121443",
+    "title": "1805121443",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 将sublime添加到鼠标右键菜单中\r date: 20180512 14:43:08\r tags: sublime\r category: 2018\r \r  关于怎么将sublime添加..."
+  },
+  {
+    "id": "1805122203",
+    "title": "1805122203",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: Terminal 一个十分神奇的插件\r date: 20180512 22:03:46\r tags: terminal\r category: 2018\r \r \r  介绍一个sublime..."
+  },
+  {
+    "id": "1805131857",
+    "title": "1805131857",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: windows 给文件夹起别名\r date: 20180513 18:58:00\r tags: windows\r category: 2018\r \r \r  这是一个跟window相关的小..."
+  },
+  {
+    "id": "1806221020",
+    "title": "1806221020",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: javascript之函数篇\r date: 20180622 10:20:00\r tags: js\r category: 2018\r \r \r  函数传参在各种语言中都是很常见的\r js的..."
+  },
+  {
+    "id": "1807131401",
+    "title": "1807131401",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 字符串里取数字\r date: 20180713 14:02:03\r tags: string,js\r category: 2018\r \r \r  这是一个跟字符串有关的小操作\r \r  案例..."
+  },
+  {
+    "id": "1807131408",
+    "title": "1807131408",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 二维数组排序去最大值的ID\r date: 20180713 14:08:57\r tags: array,js\r category: 2018\r \r \r bash\r \r  这是一个跟数组排..."
+  },
+  {
+    "id": "1807131414",
+    "title": "1807131414",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 去掉数组中的最大值,求剩下值的和\r date: 20180713 14:13:25\r tags: array,js\r category: 2018\r \r \r  这是一个跟数组筛选有关的小..."
+  },
+  {
+    "id": "1807132343",
+    "title": "1807132343",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 数组去重+数组计数去位数最多的值\r date: 20180713 23:43:59\r tags: array,js\r category: 2018\r \r \r  将一个指定数组去重并给出数..."
+  },
+  {
+    "id": "1807231611",
+    "title": "1807231611",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: nginx的安装及常用命令总结\r date: 20180723 16:11:39\r tags: nginx\r category: 2018\r \r \r  在Linux下安装nginx的一些..."
+  },
+  {
+    "id": "1807231718",
+    "title": "1807231718",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 安装iptables\r date: 20180723 17:18:28\r tags: linux\r category: 2018\r \r \r  安装iptables遇到的问题总结\r \r 安..."
+  },
+  {
+    "id": "1808041343",
+    "title": "1808041343",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 将一些常用的Linux命令放到一个脚本中执行\r date: 20180804 13:43:48\r tags: linux\r category: 2018\r \r \r  Linux菜鸟级选手..."
+  },
+  {
+    "id": "1808091525",
+    "title": "1808091525",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: thinkphp5采坑日常\r date: 20180809 15:25:51\r tags: linux,nginx,thinkphp\r category: 2018\r \r \r  thin..."
+  },
+  {
+    "id": "1808141338",
+    "title": "1808141338",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 分享几个CSDN的专栏感觉很实用\r date: 20180814 13:39:00\r tags: mysql,github\r category: 2018\r \r \r 学习是一个人不断充实..."
+  },
+  {
+    "id": "1808151505",
+    "title": "1808151505",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 解决GitHub不能访问的问题\r date: 20180815 15:05:18\r tags: github\r category: 2018\r \r \r 最近一段时间,GitHub很疯狂,..."
+  },
+  {
+    "id": "1808181354",
+    "title": "1808181354",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: element dispatch在项目中的使用\r date: 20180818 13:54:31\r tags: vue,dispatch,broadcast,js\r category: ..."
+  },
+  {
+    "id": "1808201400",
+    "title": "1808201400",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: vue之兄弟间通信\r date: 20180820 14:00:44\r tags: js,vue,bus\r category: 2018\r \r \r 组件通信的方法很多, 这边介绍的是一种..."
+  },
+  {
+    "id": "1809051733",
+    "title": "1809051733",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: ng6+antd采坑指南一环境搭建\r date: 20180905 17:33:10\r tags: angular,ng6,antd\r category: 2018\r \r \r 本猿爱好乱..."
+  },
+  {
+    "id": "1809051757",
+    "title": "1809051757",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: ng6+antd采坑指南二路由及惰性加载配置\r date: 20180905 17:57:24\r tags: angular,ng6,antd\r category: 2018\r \r \r ..."
+  },
+  {
+    "id": "1810241426",
+    "title": "1810241426",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: xftp能不能登陆\r date: 20181024 14:26:53\r tags: linux,sftp\r category: 2018\r \r \r  突然Sftp就无法使用了\r \r 前几..."
+  },
+  {
+    "id": "1811261419",
+    "title": "1811261419",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: linux tree的安装和使用\r date: 20181126 14:19:52\r tags: linux\r category: 2018\r \r \r  linux下一个按树状结构查看目..."
+  },
+  {
+    "id": "1903111102",
+    "title": "1903111102",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 一个很有趣的前端面试题\r date: 20190311 11:03:04\r tags: js, array\r category: 2019\r \r \r  一个很骚气的数组降维\r \r <! ..."
+  },
+  {
+    "id": "1903121154",
+    "title": "1903121154",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 根据二维数组的一个字段进行按字母排序\r date: 20190312 11:55:04\r tags: array,js\r category: 2019\r \r \r  一个很变态的业务需求\r..."
+  },
+  {
+    "id": "1903191152",
+    "title": "1903191152",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 图面在div中既要宽100%显示又要高100%显示\r date: 20190319 11:52:40\r tags: css\r category: 2019\r \r \r \r  很常见的需求\r..."
+  },
+  {
+    "id": "1903291223",
+    "title": "1903291223",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: CentOs7配置yum源为阿里镜像\r date: 20190329 12:24:41\r tags: linux,yum\r category: 2019\r \r \r \r  更换yum源能有..."
+  },
+  {
+    "id": "1903311938",
+    "title": "1903311938",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: LAMP环境安装整理\r date: 20190331 19:38:46\r tags: linux, lamp, apache, php\r category: 2019\r \r \r  关于l..."
+  },
+  {
+    "id": "1904171637",
+    "title": "1904171637",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: linux下创建用户并为其设置密钥登录\r date: 20190417 16:37:18\r tags: linux,ssh\r category: 2019\r \r \r \r  Linux安全..."
+  },
+  {
+    "id": "1905101616",
+    "title": "1905101616",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 面向对象学习篇1理解对象\r date: 20190510 16:17:22\r tags: js\r category: 2019\r \r \r  对象即多个属性和方法的一个集合体\r \r <! ..."
+  },
+  {
+    "id": "1905102000",
+    "title": "1905102000",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 面向对象学习篇2创建对象\r date: 20190510 20:00:40\r tags: js\r category: 2019\r \r \r  虽然Object构造函数或对象字面量都可以用来..."
+  },
+  {
+    "id": "1909300944",
+    "title": "1909300944",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: HEXO图片的使用\r date: 20190930 20:00:40\r tags: hexo\r category: 2019\r \r \r  记录hexo怎么使用项目中的图片\r <! mor..."
+  },
+  {
+    "id": "1910091125",
+    "title": "1910091125",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: git 合并多个commit记录笔记\r date: 20191009 11:27:29\r tags: git\r category: 2019\r \r \r  git rebase 使用记录\r..."
+  },
+  {
+    "id": "1910091637",
+    "title": "1910091637",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: JS的节流防抖学习笔记\r date: 20191009 16:38:09\r tags: js\r category: 2019\r \r \r  什么是防抖和节流? 有什么区别? 如何实现?\r ..."
+  },
+  {
+    "id": "1910111621",
+    "title": "1910111621",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 实现超出整数存储范围的两个大整数相加入参返回值都是字符串\r date: 20191011 16:21:49\r tags: js\r category: 2019\r \r \r  在掘金中看见的..."
+  },
+  {
+    "id": "1910141419",
+    "title": "1910141419",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 诡异的js\r date: 20191014 14:19:54\r tags: js\r category: 2019\r \r \r  朋友圈刷到别人一个图在此记录下\r \r <! more \r \r..."
+  },
+  {
+    "id": "1910220952",
+    "title": "1910220952",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: React高阶组件\r date: 20191022 09:52:32\r tags: js,react\r category: 2019\r \r \r  趣味理解:一个组件进了一个工厂,出来了就..."
+  },
+  {
+    "id": "1910241538",
+    "title": "1910241538",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: JS创建对象的方法归纳\r date: 20191024 15:38:39\r tags: js,oop\r category: 2019\r \r \r  js创建对象的方法很多,每种都有不同的适..."
+  },
+  {
+    "id": "1910241649",
+    "title": "1910241649",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: JS对象继承归纳\r date: 20191024 16:49:31\r tags: js,oop\r category: 2019\r \r \r  面向对象和继承一般都是成对出现,分开了他们会孤..."
+  },
+  {
+    "id": "1910251041",
+    "title": "1910251041",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 数据深拷贝笔记\r date: 20191025 10:41:33\r tags: js,deepCopy\r category: 2019\r \r \r  学习笔记\r \r <! more \r \r..."
+  },
+  {
+    "id": "1910270948",
+    "title": "1910270948",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 关于正则在JS中的一些使用学习笔记\r date: 20191027 09:48:50\r tags: js, reg\r category: 2019\r \r \r  正则是一种规则, 这个规则..."
+  },
+  {
+    "id": "2001052334",
+    "title": "2001052334",
+    "date": "2020-01-01",
+    "tags": [],
+    "excerpt": "title: 记一次切换主题\r date: 20200105 23:34:49\r tags: hexo\r category: 2020\r \r \r  主题迁移: 之前是用的是yiliahttps://g..."
+  }
+]

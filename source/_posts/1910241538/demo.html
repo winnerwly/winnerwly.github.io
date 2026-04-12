@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>创建对象的七种方法</title>
+</head>
+
+<body>
+  <h1>请打开控制台(F12)查看运行结果</h1>
+  <script>
+    // 创建对象的方法
+    // 1 Object构造函数创建
+    var parson1 = new Object({
+      like: 'book'
+    })
+    parson1.name = '小可爱'
+    parson1.age = 18
+    parson1.show = function () {
+      console.log(this.name)
+    }
+    parson1.show()
+    console.log('parson1', parson1)
+
+    // 2 使用对象字面量的方法创建对象
+
+    var parson2 = {
+      name: '小明',
+      age: 48,
+      show: function () {
+        console.log(this.name)
+      }
+    }
+    parson2.show()
+    console.log('parson2', parson2)
+
+    // 3 使用工厂模式创建对象
+
+    function Parson3(name, age) {
+      var o = new Object({
+        name, age
+      })
+      o.show = function () {
+        console.log(this.name)
+      }
+      return o
+    }
+    const parson3 = Parson3('小灰灰', 3)
+    parson3.show()
+    console.log('parson3', parson3)
+
+    // 4 使用构造函数创建对象
+
+    function Parson4(name, age) {
+      this.name = name
+      this.age = age
+      this.show = function () {
+        console.log(this.name)
+      }
+    }
+    var parson4 = new Parson4('乔治', 2)
+    parson4.show()
+    console.log('parson4', parson4)
+
+    // 5 原型模式创建对象
+
+    function Parson5() { }
+    Parson5.prototype.name = '小红红'
+    Parson5.prototype.age = 30
+    Parson5.prototype.show = function () {
+      console.log(this.name)
+    }
+    var parson5 = new Parson5()
+    parson5.show()
+    console.log('parson5', parson5.name)
+    console.log('parson5', parson5.age)
+    // 不能直接打印出实例的属性
+
+    // 6 组合使用构造函数模式和原型模式
+
+    function Parson6(name, age) {
+      this.name = name
+      this.age = age
+    }
+    Parson6.prototype.show = function () {
+      console.log(this.name)
+    }
+    var parson6 = new Parson6('佩奇', 1)
+    parson6.show()
+    console.log('parson6', parson6)
+
+    // 7 es6 class声明方式创建对象
+
+    class Parson7 {
+      constructor(name, age) {
+        this.name = name
+        this.age = age
+      }
+      show() {
+        console.log(this.name)
+      }
+    }
+    var parson7 = new Parson7('小猪猪', 3)
+    parson7.show()
+    console.log('parson7', parson7)
+  </script>
+</body>
+
+</html>
