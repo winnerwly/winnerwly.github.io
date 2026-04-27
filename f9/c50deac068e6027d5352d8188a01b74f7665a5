@@ -1,0 +1,37 @@
+.claude/settings.local.json
+  a7bf1ca30dccca58 8-9
+  955b7a37ba999ee8 1-5,7,10-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "f9c50deac068e6027d5352d8188a01b74f7665a5",
+  "prompts": {
+    "955b7a37ba999ee8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f37cf8cb-6736-4e67-bcc0-0deb8529bfaa",
+        "model": "MiniMax-M2.7-highspeed"
+      },
+      "human_author": "wangliuyin",
+      "messages": [],
+      "total_additions": 14,
+      "total_deletions": 3,
+      "accepted_lines": 27,
+      "overriden_lines": 1
+    },
+    "a7bf1ca30dccca58": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "61216f85-acae-4b39-881f-295fb2348193",
+        "model": "MiniMax-M2.7-highspeed"
+      },
+      "human_author": "wangliuyin",
+      "messages": [],
+      "total_additions": 3292,
+      "total_deletions": 112,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    }
+  }
+}
