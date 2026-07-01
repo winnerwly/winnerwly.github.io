@@ -1,21 +1,20 @@
+:root
+  --surface-blur: blur(14px)
+  --content-width: 1060px
+  --header-height: 72px
+
 html
-  background: #000
-  &::-webkit-scrollbar-thumb
-    background-color: rgba(255, 255, 255, 0.24)
-    &:hover
-      background-color: rgba(255, 255, 255, 0.4)
+  scroll-behavior: smooth
 
 body
-  background: #000
-  color: #fff
-  letter-spacing: 0.02em
+  font-size: 16px
+  line-height: 1.8
+  letter-spacing: 0.01em
 
   &:before
     opacity: 1
     z-index: -2
-    background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
-    background-size: 48px 48px
-    background-position: center center
+    background-image: radial-gradient(circle at 10% 20%, rgba(148, 163, 184, 0.18), transparent 28%), radial-gradient(circle at 90% 0%, rgba(59, 130, 246, 0.16), transparent 36%), linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(242, 245, 251, 0.98) 52%)
 
   &:after
     content: ''
@@ -23,959 +22,472 @@ body
     inset: 0
     z-index: -1
     pointer-events: none
-    background: radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 36%), linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 32%)
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.34), rgba(241, 245, 249, 0.08))
 
 a
-  color: #fff
-  &:hover
-    color: #999
+  transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease
 
 .wrapper
-  position: relative
+  overflow: clip
 
-.navbar-actions
-  display: flex
-  align-items: center
-  justify-content: flex-end
-  gap: 14px
+.container
+  max-width: 1200px
+  margin: 0 auto
+  padding-left: 1.25rem
+  padding-right: 1.25rem
 
 .navbar,
 .navbar-mobile
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12)
-  background: rgba(0, 0, 0, 0.88)
-  backdrop-filter: blur(18px)
-
-.navbar
   position: sticky
   top: 0
-  z-index: 20
+  z-index: 40
   height: auto
-  line-height: 1.2
+  line-height: 1.3
+  border-bottom: 1px solid rgba(148, 163, 184, 0.32)
+  background: rgba(255, 255, 255, 0.74)
+  backdrop-filter: var(--surface-blur)
+  -webkit-backdrop-filter: var(--surface-blur)
 
+.navbar
   .container
-    max-width: 1720px
-    padding: 22px 32px
+    min-height: var(--header-height)
+    display: flex
     align-items: center
-    gap: 24px
+    justify-content: space-between
+    gap: 1rem
 
   .header-logo a
-    font-size: 16px
-    letter-spacing: 0.28em
-    text-transform: uppercase
-    font-family: $font-family
+    font-weight: 700
+    letter-spacing: 0.08em
 
   .menu
     display: flex
-    flex-wrap: wrap
+    align-items: center
     justify-content: flex-end
-    gap: 8px
+    gap: 0.35rem
 
     a
       display: inline-flex
       align-items: center
-      min-height: 42px
-      padding: 0 16px
-      border: 1px solid transparent
-      border-radius: 9999px
-      font-size: 12px
-      letter-spacing: 0.22em
-      text-transform: uppercase
-      font-family: $font-family
+      min-height: 2.35rem
+      padding: 0 0.9rem
+      border-radius: 999px
+      color: $light-font-secondary-color
 
       &:hover
-        border-color: rgba(255, 255, 255, 0.18)
-        color: #fff
+        color: $light-navbar-active-color
+        background: rgba(15, 23, 42, 0.08)
+
+  .menu.active,
+  .menu .active,
+  .menu-item.active
+    color: $light-navbar-active-color
+    background: rgba(15, 23, 42, 0.08)
+
+.navbar-actions
+  display: flex
+  align-items: center
+  gap: 0.65rem
 
 .theme-toggle
-  display: inline-flex
-  align-items: center
-  justify-content: center
-  min-height: 40px
-  padding: 0 14px
-  border: 1px solid rgba(255, 255, 255, 0.16)
-  border-radius: 9999px
-  background: transparent
-  color: #fff
-  font-size: 11px
-  letter-spacing: 0.24em
-  text-transform: uppercase
-  font-family: $font-family
-  cursor: pointer
-  transition: background 0.24s ease, color 0.24s ease, border-color 0.24s ease
+  min-height: 2.25rem
+  padding: 0 0.75rem
+  border-radius: 999px
+  border: 1px solid rgba(148, 163, 184, 0.46)
+  background: rgba(255, 255, 255, 0.6)
+  color: $light-font-secondary-color
+  font-size: 0.72rem
+  letter-spacing: 0.09em
+  font-weight: 600
 
   &:hover
-    border-color: rgba(255, 255, 255, 0.32)
-    background: rgba(255, 255, 255, 0.08)
-
-.navbar-mobile
-  .container
-    padding: 18px 20px
-
-    .navbar-header
-      display: flex
-      align-items: center
-      justify-content: space-between
-
-      a
-        font-size: 14px
-        letter-spacing: 0.24em
-        text-transform: uppercase
-        font-family: $font-family
-
-      .theme-toggle-mobile
-        margin-left: 12px
-        min-height: 28px
-        padding: 0 10px
-        font-size: 10px
-
-    .menu-toggle
-      display: inline-flex
-      align-items: center
-      justify-content: center
-      width: 44px
-      height: 44px
-      border: 1px solid rgba(255, 255, 255, 0.24)
-      border-radius: 9999px
-      font-size: 18px
-
-    .menu
-      padding: 88px 24px 24px
-      background: rgba(0, 0, 0, 0.98)
-
-      .menu-item-title
-        margin-bottom: 16px
-        a
-          color: #999
-          letter-spacing: 0.24em
-          text-transform: uppercase
-          font-family: $font-family
-          line-height: 1.4
-
-      a.menu-item
-        display: flex
-        align-items: center
-        min-height: 52px
-        padding: 0 18px
-        margin-bottom: 12px
-        border: 1px solid rgba(255, 255, 255, 0.12)
-        border-radius: 6px
-        color: #fff
-        font-size: 13px
-        letter-spacing: 0.22em
-        text-transform: uppercase
-        font-family: $font-family
-
-        &:last-child
-          border-bottom: 1px solid rgba(255, 255, 255, 0.12)
-
-      .menu-close
-        display: inline-flex
-        align-items: center
-        justify-content: center
-        border: 1px solid rgba(255, 255, 255, 0.24)
-        border-radius: 9999px
-        color: #fff
+    color: $light-font-color
+    border-color: rgba(59, 130, 246, 0.42)
+    background: rgba(59, 130, 246, 0.09)
 
 .main
-  .container
-    max-width: 1720px
-    margin: 0 auto
+  padding-top: 2rem
+  padding-bottom: 3rem
 
-.home-page
-  .navbar,
-  .navbar-mobile
-    background: rgba(0, 0, 0, 0.72)
-    border-bottom-color: rgba(255, 255, 255, 0.08)
-    backdrop-filter: blur(10px)
-
-  .navbar .menu a
-    color: rgba(255, 255, 255, 0.68)
-    &:hover
-      color: #fff
-      border-color: rgba(255, 255, 255, 0.12)
-
-.home-shell
-  min-height: calc(100vh - 84px)
-  display: flex
-  align-items: center
-  padding-top: 24px
-  padding-bottom: 48px
-
-.intro
-  width: 100%
-  transform: none
-  display: grid
-  grid-template-columns: minmax(0, 1.05fr) minmax(420px, 0.95fr)
-  gap: 56px
-  align-items: center
-  text-align: left
-
-.intro-copy
-  max-width: 780px
-
-.intro-kicker
-  display: inline-flex
-  align-items: center
-  min-height: 34px
-  padding: 0 14px
-  margin-bottom: 24px
-  border: 1px solid rgba(255, 255, 255, 0.14)
-  border-radius: 9999px
-  color: #999
-  font-size: 12px
-  letter-spacing: 0.28em
-  text-transform: uppercase
-  font-family: $font-family
-
-.nickname
-  display: flex
-  flex-direction: column
-  gap: 2px
-  margin: 0
-  font-size: clamp(4.8rem, 10vw, 8.8rem)
-  line-height: 0.88
-  letter-spacing: 0.08em
-  text-transform: uppercase
-
-.intro-summary
-  max-width: 640px
-  margin-top: 24px
-  color: #fff
-  font-size: clamp(1.1rem, 2.4vw, 1.5rem)
-  line-height: 1.55
-  letter-spacing: 0.06em
-  text-transform: uppercase
-  font-family: $font-family
-
-.description
-  max-width: 620px
-  margin-top: 18px
-  color: rgba(255, 255, 255, 0.58)
-  font-size: 16px
-  line-height: 1.85
-
-  p
-    margin: 0
-
-.intro-actions
-  display: flex
-  flex-wrap: wrap
-  gap: 14px
-  margin-top: 34px
-
-.action-btn
-  display: inline-flex
-  align-items: center
-  justify-content: center
-  min-height: 46px
-  padding: 0 20px
-  border: 1px solid rgba(255, 255, 255, 0.22)
-  border-radius: 9999px
-  color: #fff
-  font-size: 13px
-  letter-spacing: 0.28em
-  text-transform: uppercase
-  font-family: $font-family
-  transition: background 0.24s ease, color 0.24s ease, border-color 0.24s ease, transform 0.24s ease
-
-  &:hover
-    background: #fff
-    color: #000
-    border-color: #fff
-    transform: translateY(-1px)
-
-.action-btn-primary
-  border-color: #fff
-
-.action-btn-ghost
-  border-color: transparent
-  padding-left: 6px
-  padding-right: 6px
+.main .container
   min-height: auto
 
-  &:hover
-    background: transparent
-    color: #999
-    transform: none
+.home-page .main
+  padding-top: 1.5rem
 
-.intro-telemetry
-  display: flex
-  flex-wrap: wrap
-  gap: 18px
-  margin-top: 32px
-  color: #999
-  font-size: 12px
-  letter-spacing: 0.22em
-  text-transform: uppercase
-  font-family: $font-family
-  line-height: 1.6
-
-  span
-    display: inline-flex
-    align-items: center
-    gap: 8px
-
-  strong
-    color: #fff
-    font-weight: 400
-
-.links
-  display: flex
-  flex-wrap: wrap
-  gap: 10px
-  margin-top: 22px
-
-  a
-    padding: 0
-
-.link-item
-  display: inline-flex
-  align-items: center
-  justify-content: center
-  width: 38px
-  height: 38px
-  padding: 0
-  border: 1px solid rgba(255, 255, 255, 0.08)
-  border-radius: 9999px
-  color: rgba(255, 255, 255, 0.82)
-  font-size: 12px
-  letter-spacing: 0.18em
-  text-transform: uppercase
-  font-family: $font-family
-
-  &:hover
-    background: rgba(255, 255, 255, 0.06)
-    color: #fff
-
-.link-label
-  display: inline-block
-
-.intro-scroll
-  margin-top: 26px
-  color: rgba(255, 255, 255, 0.5)
-  font-size: 11px
-  letter-spacing: 0.3em
-  text-transform: uppercase
-  font-family: $font-family
-
-.intro-visual
-  display: flex
-  justify-content: flex-end
-  margin-top: 24px
-
-.hero-panel
-  width: min(100%, 620px)
-  border: 1px solid rgba(255, 255, 255, 0.12)
-  border-radius: 6px
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01))
-  overflow: hidden
-
-.hero-panel-head
-  display: flex
-  align-items: center
-  justify-content: space-between
-  gap: 16px
-  padding: 16px 20px
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08)
-  color: #999
-  font-size: 11px
-  letter-spacing: 0.24em
-  text-transform: uppercase
-  font-family: $font-family
-
-  span
-    display: inline-flex
-    align-items: center
-    justify-content: center
-    text-align: center
-
-.hero-panel-main
-  display: grid
-  grid-template-columns: minmax(180px, 240px) 1fr
-  gap: 20px
-  padding: 20px
-  align-items: stretch
-
-.avatar
-  display: flex
-  width: 100%
-  padding: 0
-  border: 1px solid rgba(255, 255, 255, 0.08)
-  aspect-ratio: 1 / 1
-  border-radius: 50%
-  overflow: hidden
-  background: #030303
-  align-items: center
-  justify-content: center
-
-  img
-    width: 100%
-    height: 100%
-    margin: 0
-    object-fit: cover
-    border-radius: 50%
-    transform: scale(1.16)
-
-.terminal-card
-  width: 100%
-  border: 1px solid rgba(255, 255, 255, 0.08)
-  border-radius: 6px
-  overflow: hidden
-  background: rgba(255, 255, 255, 0.02)
-
-.terminal-bar
-  display: flex
-  gap: 10px
-  padding: 14px 18px
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08)
-
-  span
-    width: 10px
-    height: 10px
-    border-radius: 50%
-    background: rgba(255, 255, 255, 0.28)
-
-    &:first-child
-      background: #fff
-
-    &:nth-child(2)
-      background: #999
-
-.terminal-body
-  display: grid
-  gap: 10px
-  padding: 18px
-  color: rgba(255, 255, 255, 0.82)
-  font-size: 13px
-  line-height: 1.7
-  letter-spacing: 0.06em
-  font-family: $font-family
-
-.terminal-prefix
-  display: inline-block
-  width: 18px
-  color: #fff
-
-.hero-posts
-  display: grid
-  gap: 8px
-  padding: 0 20px 20px
-
-.hero-posts-title
-  margin-bottom: 6px
-  color: #999
-  font-size: 11px
-  letter-spacing: 0.24em
-  text-transform: uppercase
-  font-family: $font-family
-
-.hero-post-item
-  display: grid
-  grid-template-columns: 88px 1fr
-  gap: 14px
-  padding: 12px 0
-  border-top: 1px solid rgba(255, 255, 255, 0.08)
-  align-items: start
-
-  &:hover
-    color: #fff
-
-.hero-post-date
-  color: #999
-  font-size: 11px
-  letter-spacing: 0.2em
-  text-transform: uppercase
-  font-family: $font-family
-
-.hero-post-name
-  font-size: 15px
-  line-height: 1.65
+.home-shell
+  min-height: calc(100vh - 180px)
 
 .post-wrap
-  max-width: 1200px
-  margin: 40px auto 56px
-  padding: 36px
-  background: rgba(255, 255, 255, 0.02)
-  border: 1px solid rgba(255, 255, 255, 0.12)
-  border-radius: 6px
-  backdrop-filter: blur(18px)
-
-  p
-    margin: 0
+  width: 100%
+  max-width: var(--content-width)
+  margin: 1rem auto 2.5rem
+  padding: 2rem 2.2rem
+  border-radius: $radius-lg
+  border: 1px solid rgba(148, 163, 184, 0.26)
+  background: $light-card-background
+  box-shadow: $shadow-md
+  backdrop-filter: var(--surface-blur)
+  -webkit-backdrop-filter: var(--surface-blur)
 
 .archive
-  h3
-    margin: 0 0 32px
-    font-size: clamp(2.4rem, 7vw, 5rem)
-    line-height: 0.95
-    letter-spacing: 0.08em
-    text-transform: uppercase
-
   .archive-item
-    display: flex
-    align-items: center
-    justify-content: space-between
-    gap: 24px
     margin-left: 0
-    padding: 20px 0
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08)
+    margin-top: 0.65rem
+    padding: 1rem 1.2rem
+    border-radius: $radius-md
+    border: 1px solid rgba(148, 163, 184, 0.24)
+    background: rgba(255, 255, 255, 0.64)
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease
+
+    &:hover
+      transform: translateY(-2px)
+      border-color: rgba(59, 130, 246, 0.36)
+      box-shadow: $shadow-sm
 
 .archive-item-link
-  max-width: 72%
-  font-size: 20px
+  max-width: calc(100% - 8.5rem)
   line-height: 1.5
 
 .archive-item-date
-  float: none
-  font-size: 12px
-  letter-spacing: 0.18em
-  text-transform: uppercase
-  font-family: $font-family
+  font-size: 0.82rem
+  letter-spacing: 0.03em
+
+.categories-card
+  display: grid
+  gap: 1rem
+  padding: 0 !important
+
+  .card-item
+    margin-top: 0 !important
+    padding: 1.2rem !important
+    border-radius: $radius-md
+    border: 1px solid rgba(148, 163, 184, 0.22)
+    background: rgba(255, 255, 255, 0.68)
+
+    .categories h3
+      margin-top: 0
+
+.tag-cloud-tags
+  display: flex
+  flex-wrap: wrap
+  gap: 0.65rem
+  margin-top: 1.25rem
+  padding-top: 0
+
+  a
+    margin: 0
+    padding: 0.52rem 0.82rem
+    border-radius: 999px
+    border: 1px solid rgba(148, 163, 184, 0.34)
+    background: rgba(255, 255, 255, 0.75)
+    font-size: 0.88rem
+
+    &:hover
+      transform: translateY(-1px)
+      border-color: rgba(59, 130, 246, 0.5)
+      background: rgba(59, 130, 246, 0.08)
 
 .post-title
-  margin-bottom: 18px
-  font-size: clamp(2.2rem, 6vw, 4.8rem)
-  line-height: 0.98
-  letter-spacing: 0.06em
-  text-transform: uppercase
+  line-height: 1.3
 
 .post-meta
-  display: grid
-  gap: 10px
-  padding-top: 10px
-  color: #999 !important
-  font-size: 12px
-  line-height: 1.8
-  letter-spacing: 0.16em
-  text-transform: uppercase
-  font-family: $font-family
+  display: flex
+  flex-wrap: wrap
+  gap: 0.5rem 1rem
+  margin-top: 0.8rem
+  font-size: 0.85rem
+  color: $light-font-secondary-color !important
 
   br
     display: none
 
 .post-content
-  padding-top: 28px
+  padding-top: 1.45rem
   text-align: left
-  line-height: 1.9
-  font-size: 17px
-  color: rgba(255, 255, 255, 0.88)
+  line-height: 1.85
+  font-size: 1.02rem
 
   h2, h3, h4, h5, h6
-    margin: 48px 0 18px
-    line-height: 1.05
-    letter-spacing: 0.06em
-    text-transform: uppercase
-
-  h2
-    font-size: clamp(1.8rem, 4vw, 3rem)
-
-  h3
-    font-size: clamp(1.3rem, 3vw, 2.1rem)
+    margin-top: 2.3rem
+    margin-bottom: 1rem
+    line-height: 1.35
+    scroll-margin-top: calc(var(--header-height) + 16px)
 
   p
-    margin: 14px 0
-    color: rgba(255, 255, 255, 0.78)
+    margin: 0.9rem 0
 
   ul, ol
-    padding-left: 1.5em
-    color: rgba(255, 255, 255, 0.78)
+    padding-left: 1.55rem
 
   li + li
-    margin-top: 8px
-
-  strong
-    color: #fff
-    font-weight: 400
+    margin-top: 0.45rem
 
   a
-    border-bottom: 1px solid rgba(255, 255, 255, 0.24)
+    border-bottom: 1px solid rgba(59, 130, 246, 0.35)
 
     &:hover
-      color: #fff
-      border-color: rgba(255, 255, 255, 0.68)
-
-  code
-    padding: 2px 8px
-    border-radius: 6px
-    background: rgba(255, 255, 255, 0.08)
-    color: #fff
-    font-family: Consolas, Monaco, Menlo, monospace
-
-  pre
-    background: transparent
-
-  figure.highlight
-    border: 1px solid rgba(255, 255, 255, 0.12)
-    border-radius: 6px
-    background: #050505
-
-    .gutter
-      color: rgba(255, 255, 255, 0.35)
+      border-bottom-color: rgba(59, 130, 246, 0.7)
 
   blockquote
-    margin: 24px 0
-    padding: 18px 20px
-    color: rgba(255, 255, 255, 0.72)
-    background: rgba(255, 255, 255, 0.04)
-    border-left: 1px solid rgba(255, 255, 255, 0.26)
+    margin: 1.25rem 0
+    padding: 0.9rem 1.1rem
+    border-left: 3px solid $light-post-blockquote-border-color
+    border-radius: 0 $radius-sm $radius-sm 0
 
-  table
-    width: 100%
-    border-collapse: collapse
-
-    th, td
-      padding: 12px 14px
-      border: 1px solid rgba(255, 255, 255, 0.12)
-
-  img
-    border: 1px solid rgba(255, 255, 255, 0.12)
+  code
+    padding: 0.16rem 0.42rem
     border-radius: 6px
 
-  .image-caption:not(:empty)
-    color: #999
-    border-bottom-color: rgba(255, 255, 255, 0.18)
-    font-family: $font-family
+  figure.highlight
+    margin: 1.2rem 0
+    border-radius: $radius-sm
+    border: 1px solid rgba(148, 163, 184, 0.32)
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32)
 
-.categories-card
-  padding: 0 !important
+  table
+    overflow: hidden
+    border-radius: $radius-sm
 
-  .card-item
-    margin-top: 0 !important
-    padding: 0 !important
-    border-top: 1px solid rgba(255, 255, 255, 0.08)
+    th, td
+      padding: 0.62rem 0.85rem
 
-    &:first-child
-      border-top: 0
+  img
+    margin: 1.15rem auto
+    border-radius: $radius-sm
+    border: 1px solid rgba(148, 163, 184, 0.35)
+    box-shadow: $shadow-sm
 
-  .categories
-    width: 100%
-    padding: 26px 0
+.post-toc
+  top: calc(var(--header-height) + 40px)
+  right: 1rem
+  width: 16.5rem
 
-    h3
-      margin: 0 0 18px
-      font-size: 28px
-      letter-spacing: 0.08em
-      text-transform: uppercase
+  .tocbot-list
+    max-height: calc(100vh - 170px)
+    padding: 0.75rem
+    border-radius: $radius-md
+    border: 1px solid rgba(148, 163, 184, 0.24)
+    background: rgba(255, 255, 255, 0.74)
+    backdrop-filter: var(--surface-blur)
 
-.tag-cloud-tags
-  display: flex
-  flex-wrap: wrap
-  gap: 12px
-  margin-top: 28px
-  padding-top: 0
-
-  a
-    margin: 0
-    padding: 12px 18px
-    border: 1px solid rgba(255, 255, 255, 0.12)
-    border-radius: 9999px
-    font-size: 13px
-    letter-spacing: 0.16em
-    text-transform: uppercase
-    font-family: $font-family
-
-    &:active, &:focus, &:hover
-      transform: none
-      color: #fff
-      background: rgba(255, 255, 255, 0.08)
-
-    small
-      color: #999
+  .tocbot-list-menu
+    margin: 0.75rem 0.25rem 0
 
 .pagination
-  padding-top: 36px
-  gap: 8px
+  gap: 0.45rem
+  padding-top: 1.6rem
 
   a, span
-    min-width: 40px
-    min-height: 40px
-    padding: 0 12px
-    border: 1px solid rgba(255, 255, 255, 0.12)
-    border-radius: 9999px
-    color: #999
-    font-size: 12px
-    letter-spacing: 0.18em
-    text-transform: uppercase
-    font-family: $font-family
+    min-width: 2.2rem
+    min-height: 2.2rem
+    padding: 0.25rem 0.65rem
+    border-radius: 999px
+    border: 1px solid rgba(148, 163, 184, 0.34)
+    background: rgba(255, 255, 255, 0.75)
+    color: $light-font-secondary-color
+    font-size: 0.8rem
+    font-weight: 600
+    letter-spacing: 0.02em
     display: inline-flex
     align-items: center
     justify-content: center
 
   .page-number
     margin: 0
-    color: #999
 
     &:before, &:after
       display: none
 
     &.current
-      color: #fff
-      border-color: rgba(255, 255, 255, 0.3)
-      background: rgba(255, 255, 255, 0.08)
+      color: #ffffff
+      border-color: $primary-color
+      background: $primary-color
 
 .footer
   height: auto
-  padding: 28px 0 36px
-  border-top: 1px solid rgba(255, 255, 255, 0.1)
+  padding: 1.5rem 0 2.2rem
 
 .copyright
-  color: #999
-  font-size: 12px
-  letter-spacing: 0.16em
-  text-transform: uppercase
-  font-family: $font-family
+  font-size: 0.82rem
+  color: $light-font-secondary-color
 
-  a
-    color: #fff
-
-.light-theme
-  background: #f5f7fb
-
+.dark-theme
   body
-    background: #f5f7fb
-    color: #0f172a
+    color: $dark-font-color
 
     &:before
-      background-image: linear-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(15, 23, 42, 0.05) 1px, transparent 1px)
+      background-image: radial-gradient(circle at 14% 10%, rgba(96, 165, 250, 0.22), transparent 34%), radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.16), transparent 33%), linear-gradient(180deg, #0b1220, #0f1a2d 56%)
 
     &:after
-      background: radial-gradient(circle at top, rgba(148, 163, 184, 0.18), transparent 42%), linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(245, 247, 251, 0))
-
-  a
-    color: #0f172a
-
-    &:hover
-      color: #334155
+      background: linear-gradient(120deg, rgba(30, 41, 59, 0.5), rgba(15, 23, 42, 0.16))
 
   .navbar,
   .navbar-mobile
-    border-bottom-color: rgba(15, 23, 42, 0.1)
-    background: rgba(255, 255, 255, 0.84)
+    border-bottom-color: rgba(148, 163, 184, 0.2)
+    background: rgba(11, 18, 32, 0.76)
 
-  .navbar .menu a
-    color: #334155
-
-    &:hover
-      color: #0f172a
-      border-color: rgba(15, 23, 42, 0.12)
-
-  .header-logo a,
-  .navbar-mobile .navbar-header a,
-  .navbar-mobile .container .menu .menu-item-title a,
-  .navbar-mobile .container .menu a.menu-item,
-  .menu-toggle,
-  .theme-toggle
-    color: #0f172a
-
-  .theme-toggle
-    border-color: rgba(15, 23, 42, 0.16)
-
-    &:hover
-      background: rgba(15, 23, 42, 0.06)
-      border-color: rgba(15, 23, 42, 0.26)
-
-  .navbar-mobile .container .menu
-    background: rgba(255, 255, 255, 0.98)
-
-  .navbar-mobile .container .menu a.menu-item,
-  .navbar-mobile .container .menu .menu-close,
-  .navbar-mobile .container .menu-toggle
-    border-color: rgba(15, 23, 42, 0.12)
-
-  .home-page .navbar,
-  .home-page .navbar-mobile
-    background: rgba(255, 255, 255, 0.72)
-    border-bottom-color: rgba(15, 23, 42, 0.08)
-
-  .home-page .navbar .menu a
-    color: rgba(15, 23, 42, 0.68)
-
-    &:hover
-      color: #0f172a
-      border-color: rgba(15, 23, 42, 0.12)
-
-  .intro-kicker
-    border-color: rgba(15, 23, 42, 0.12)
-    color: #64748b
-
-  .nickname,
-  .intro-summary
-    color: #0f172a
-
-  .description
-    color: rgba(15, 23, 42, 0.7)
-
-  .action-btn
-    color: #0f172a
-    border-color: rgba(15, 23, 42, 0.18)
-
-    &:hover
-      background: #0f172a
-      color: #f8fafc
-      border-color: #0f172a
-
-  .action-btn-primary
-    border-color: #0f172a
-
-  .action-btn-ghost
-    &:hover
-      color: #475569
-      background: transparent
-      border-color: transparent
-
-  .intro-telemetry,
-  .intro-scroll,
-  .metric-label,
-  .hero-posts-title,
-  .hero-post-date,
-  .copyright
-    color: #64748b
-
-  .intro-telemetry strong
-    color: #0f172a
-
-  .link-item
-    color: #0f172a
-    border-color: rgba(15, 23, 42, 0.12)
-
-    &:hover
-      color: #0f172a
-      background: rgba(15, 23, 42, 0.04)
-
-  .hero-panel,
-  .terminal-card,
-  .avatar,
-  .post-wrap
-    background: rgba(255, 255, 255, 0.82)
-    border-color: rgba(15, 23, 42, 0.1)
-    backdrop-filter: blur(18px)
-
-  .hero-panel-head,
-  .terminal-bar,
-  .hero-post-item,
-  .footer
-    border-color: rgba(15, 23, 42, 0.08)
-
-  .terminal-body,
-  .hero-post-name,
-  .archive-item-link,
-  .post-title,
-  .post-content,
-  .post-content strong
-    color: #0f172a
-
-  .terminal-prefix
-    color: #0f172a
-
-  .archive .archive-item
-    border-bottom-color: rgba(15, 23, 42, 0.08)
-
+  .navbar .menu a,
+  .theme-toggle,
   .archive-item-date,
   .post-meta,
-  .post-content p,
-  .post-content ul,
-  .post-content ol,
+  .copyright,
   .tag-cloud-tags a small
-    color: #64748b
+    color: $dark-font-secondary-color !important
 
-  .post-content a
-    border-bottom-color: rgba(15, 23, 42, 0.18)
+  .navbar .menu a:hover,
+  .navbar .menu.active,
+  .navbar .menu .active,
+  .menu-item.active,
+  .theme-toggle:hover
+    color: $dark-font-color !important
 
-    &:hover
-      color: #0f172a
-      border-bottom-color: rgba(15, 23, 42, 0.5)
+  .navbar .menu a:hover,
+  .navbar .menu.active,
+  .menu-item.active,
+  .theme-toggle:hover,
+  .post-content a:hover
+    background: rgba(59, 130, 246, 0.16)
+
+  .post-wrap,
+  .archive .archive-item,
+  .categories-card .card-item,
+  .tag-cloud-tags a,
+  .pagination a,
+  .pagination span,
+  .post-toc .tocbot-list
+    background: $dark-card-background
+    border-color: rgba(148, 163, 184, 0.24)
+    box-shadow: none
+
+  .post-content,
+  .post-content p,
+  .archive-item-link,
+  .tag-cloud-tags a,
+  .post-content strong,
+  .post-content th,
+  .post-content td,
+  .post-content li
+    color: $dark-font-color
 
   .post-content code
-    background: #e2e8f0
-    color: #0f172a
+    background: $dark-code-background-color
+    color: $dark-code-font-color
 
-  .post-content figure.highlight,
-  .post-content blockquote,
+  .post-content figure.highlight
+    background: #0f1a2d
+
+  .post-content blockquote
+    border-left-color: $dark-post-blockquote-border-color
+    background: $dark-post-blockquote-background-color
+
   .post-content table thead
-    background: #eef2f7
-    border-color: rgba(15, 23, 42, 0.12)
+    background: $dark-post-table-background-color
 
   .post-content table th,
   .post-content table td,
-  .post-content img,
-  .categories-card .card-item
-    border-color: rgba(15, 23, 42, 0.12)
+  .post-content img
+    border-color: rgba(148, 163, 184, 0.24)
 
-  .tag-cloud-tags a,
-  .pagination a,
-  .pagination span
-    color: #475569
-    border-color: rgba(15, 23, 42, 0.12)
-
-  .tag-cloud-tags a:hover,
   .pagination .page-number.current
     color: #0f172a
-    background: rgba(15, 23, 42, 0.06)
-    border-color: rgba(15, 23, 42, 0.18)
+    background: #bfdbfe
+    border-color: #bfdbfe
 
-  .copyright a
-    color: #0f172a
+@media screen and (max-width: 1023px)
+  .navbar
+    display: none
 
-@media (max-width: 1279px)
-  .navbar .container
-    padding-left: 24px
-    padding-right: 24px
+  .navbar-mobile
+    display: block !important
 
-  .intro
-    grid-template-columns: 1fr
-    gap: 32px
+    .container
+      padding: 0.85rem 1rem
 
-  .intro-visual
-    justify-content: flex-start
+      .navbar-header
+        display: flex
+        align-items: center
+        justify-content: space-between
+        gap: 0.75rem
 
-  .hero-panel
-    width: min(100%, 720px)
+      .menu-toggle
+        width: 2.4rem
+        height: 2.4rem
+        display: inline-flex
+        align-items: center
+        justify-content: center
+        border-radius: 999px
+        border: 1px solid rgba(148, 163, 184, 0.4)
 
-  .hero-panel-main
-    grid-template-columns: 220px 1fr
+      .menu
+        transition: transform 0.25s ease
+        position: fixed
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        transform: translateX(100%)
+        padding: 5rem 1.2rem 1.2rem
+        background: rgba(242, 245, 251, 0.97)
+        overflow-y: auto
 
-@media (max-width: 767px)
-  .home-shell
-    min-height: auto
-    padding-top: 24px
-    padding-bottom: 36px
+        &.active
+          transform: translateX(0)
 
-  .nickname
-    font-size: clamp(3.4rem, 17vw, 5rem)
+        .menu-item-title
+          margin-bottom: 1rem
+          line-height: 1.5
 
-  .intro-summary
-    font-size: 1rem
+        a.menu-item
+          display: block
+          margin: 0 0 0.6rem
+          padding: 0.72rem 0.88rem
+          border-radius: $radius-sm
+          border: 1px solid rgba(148, 163, 184, 0.32)
 
-  .hero-panel-main
-    grid-template-columns: 1fr
+        .menu-close
+          margin-top: 1rem
+          width: 100%
+          min-height: 2.7rem
+          border-radius: $radius-sm
+          border: 1px solid rgba(148, 163, 184, 0.4)
+          display: inline-flex
+          align-items: center
+          justify-content: center
 
-  .hero-post-item
-    grid-template-columns: 1fr
-    gap: 6px
+  .dark-theme .navbar-mobile .container .menu
+    background: rgba(11, 18, 32, 0.96)
 
-  .hero-post-date
-    font-size: 10px
-
-  .description
-    font-size: 15px
-
-  .intro-telemetry
-    gap: 10px 14px
+@media screen and (max-width: 767px)
+  .main
+    padding-top: 1rem
 
   .post-wrap
-    margin: 24px auto 36px
-    padding: 22px 18px
+    margin: 0.75rem auto 1.6rem
+    padding: 1.3rem 1rem
 
   .archive .archive-item
-    flex-direction: column
-    align-items: flex-start
+    display: block
 
   .archive-item-link
     max-width: 100%
     white-space: normal
 
-  .post-title
-    font-size: 2.2rem
+  .archive-item-date
+    float: none
+    display: block
+    text-align: left
+    margin-top: 0.3rem
 
   .post-content
-    font-size: 15px
+    font-size: 0.97rem
+
+  .categories-card .card-item
+    padding: 1rem !important
+
+  .footer
+    padding-top: 1.1rem
+
+@media screen and (max-width: 1279px)
+  .post-toc
+    display: none
