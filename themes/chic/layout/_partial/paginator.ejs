@@ -1,11 +1,19 @@
 <% if (page.total > 1){ %>
     <nav class="pagination">
+        <% if (page.prev_link){ %>
+            <a class="extend prev" rel="prev" href="<%- url_for(page.prev_link) %>">‹</a>
+        <% } else { %>
+            <span class="extend prev disabled">‹</span>
+        <% } %>
         <%- paginator({
-            // prev_text: "&laquo; Prev",
-            // next_text: "Next &raquo;"
             prev_next: false,
             end_size: 1,
             mid_size: 2,
         }) %>
+        <% if (page.next_link){ %>
+            <a class="extend next" rel="next" href="<%- url_for(page.next_link) %>">›</a>
+        <% } else { %>
+            <span class="extend next disabled">›</span>
+        <% } %>
     </nav>
 <% } %>

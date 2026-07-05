@@ -1,7 +1,20 @@
-<%# single tag page%>
-<div class="container">
-    <div class="post-wrap tags">
-        <h2 class="post-title">-&nbsp;分类&nbsp;·&nbsp;<%-page.tag%>&nbsp;-</h2>
+<div class="container content-shell archive-shell">
+  <section class="content-hero">
+    <p class="content-kicker">Tag</p>
+    <h1><%- page.tag %></h1>
+    <p>当前标签下的文章集合。</p>
+    <div class="content-stats">
+      <span><strong><%= page.posts.length %></strong> 篇文章</span>
     </div>
-    <%- partial('archive', {pagination: config.tag, index: true}) %>
+  </section>
+
+  <section class="timeline-panel">
+    <% page.posts.each(function (post) { %>
+      <article class="archive-entry">
+        <a class="archive-entry-title" href="<%- url_for(post.path) %>"><%= post.title %></a>
+        <time class="archive-entry-date"><%- date(post.date, theme.date_format) %></time>
+      </article>
+    <% }) %>
+    <%- partial('_partial/paginator') %>
+  </section>
 </div>

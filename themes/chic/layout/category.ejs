@@ -1,63 +1,46 @@
-<%#
-
-this page will judge whether current page is 'category.'
-url:'http://localhost:4000/category/' return false.
-url:'http://localhost:4000/categories/test/' return true.
-
-if you enter 'category' page by click link will show all categories.
-otherwise if you enter 'categories' by click post header link will show the single category of this post.
-
-how to add a category page:
-
-    1. hexo new page "category"
-    2. cd source/category/index.md
-    3. add layout pattern like this:
-    ---
-    title: '''category'''
-    date: 2019-06-09 09:56:49
-    layout: category
-    ---
-
- %>
-
 <% if(is_category()){ %>
-<%- partial('_page/category', {pagination: config.category, index: true}) %>
+  <%- partial('_page/category', {pagination: config.category, index: true}) %>
 <% }else{ %>
+  <div class="container content-shell taxonomy-shell">
+    <section class="content-hero">
+      <p class="content-kicker">Categories</p>
+      <h1>分类归档</h1>
+      <p>按主题组织文章，适合从一个方向连续阅读和复盘。</p>
+      <div class="content-stats">
+        <span><strong><%= site.categories.length %></strong> 个分类</span>
+        <span><strong><%= site.posts.length %></strong> 篇文章</span>
+      </div>
+    </section>
 
-<div class="container">
-    <div class="post-wrap categories">
-        <% if(theme.page_title_enable){ %>
-        <h2 class="post-title">- <%- page.title %> -</h2>
-        <% } %>
-        <div class="categories-card">
-            <% site.categories.reverse().forEach(category_item=>{ %>
-            <%# console.log("hehe") %>
-            <div class="card-item">
-                <div class="categories">
-                    <a href="<%- url_for(category_item.path) %>">
-                        <h3>
-                            <i class="iconfont icon-category" style="padding-right:3px"></i>
-                            <%- category_item.name %>
-                        </h3>
-                    </a>
-                    <% category_item.posts.reverse().forEach((post_item, index = 0)=>{ %>
-                    <%# console.log(index) %>
-                    <% if(++index <= 10){ %>
-                    <article class="archive-item">
-                        <a class="archive-item-link" href="<%- url_for(post_item.path) %>"><%- post_item.title %></a>
-                    </article>
-                    <% } %>
-                    <% }) %>
-                    <% if(category_item.posts.length > 10){ %>
-                    <article class="archive-item">
-                        <a class="archive-item-link" href="<%- url_for(category_item.path) %>">更多</a>
-                    </article>
-                    <% } %>
-                </div>
-            </div>
+    <section class="taxonomy-grid">
+      <%
+        var sorted_categories = site.categories.toArray().sort(function(a, b) {
+          var latest_a = a.posts.sort('date', -1).first();
+          var latest_b = b.posts.sort('date', -1).first();
+          var time_a = latest_a && latest_a.date ? latest_a.date.valueOf() : 0;
+          var time_b = latest_b && latest_b.date ? latest_b.date.valueOf() : 0;
+
+          if (time_a === time_b) {
+            return String(a.name).localeCompare(String(b.name));
+          }
+
+          return time_b - time_a;
+        });
+      %>
+      <% sorted_categories.forEach(function(category_item){ %>
+        <article class="taxonomy-card">
+          <a href="<%- url_for(category_item.path) %>">
+            <span class="taxonomy-count"><%- category_item.posts.length %> 篇</span>
+            <h2><%- category_item.name %></h2>
+            <p>查看该分类下的文章与实践记录。</p>
+          </a>
+          <div class="taxonomy-preview">
+            <% category_item.posts.sort('date', -1).limit(3).forEach(function(post_item){ %>
+              <a href="<%- url_for(post_item.path) %>"><%- post_item.title %></a>
             <% }) %>
-        </div>
-
-    </div>
-</div>
+          </div>
+        </article>
+      <% }) %>
+    </section>
+  </div>
 <% } %>

@@ -1,16 +1,28 @@
-<div class="post-wrap archive">
+<div class="container content-shell archive-shell">
+  <section class="content-hero">
+    <p class="content-kicker">Archives</p>
+    <h1>文章归档</h1>
+    <p>按时间回看所有记录，快速定位最近的思考、实践和问题复盘。</p>
+    <div class="content-stats">
+      <span><strong><%= site.posts.length %></strong> 篇文章</span>
+      <span><strong><%= site.categories.length %></strong> 个分类</span>
+      <span><strong><%= site.tags.length %></strong> 个标签</span>
+    </div>
+  </section>
+
+  <section class="timeline-panel">
     <% var last_year = ''; %>
     <% page.posts.each(function (post) { %>
-    <% var cur_year = post.date.year(); %>
-
-    <% if(last_year !== cur_year){ %>
-    <h3><%- cur_year %></h3>
-    <% last_year = cur_year; } %>
-
-    <article class="archive-item">
-        <a class="archive-item-link" href="<%- url_for(post.path) %>"><%= post.title %></a>
-        <span class="archive-item-date"><%- date(post.date, theme.date_format) %></span>
-    </article>
+      <% var cur_year = post.date.year(); %>
+      <% if(last_year !== cur_year){ %>
+        <h2 class="archive-year"><%- cur_year %></h2>
+        <% last_year = cur_year; %>
+      <% } %>
+      <article class="archive-entry">
+        <a class="archive-entry-title" href="<%- url_for(post.path) %>"><%= post.title %></a>
+        <time class="archive-entry-date"><%- date(post.date, theme.date_format) %></time>
+      </article>
     <% }) %>
     <%- partial('_partial/paginator') %>
+  </section>
 </div>

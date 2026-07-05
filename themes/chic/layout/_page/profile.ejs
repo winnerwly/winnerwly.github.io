@@ -1,74 +1,128 @@
-<div class="container home-shell">
-    <section class="intro">
-        <div class="intro-copy">
-            <div class="intro-kicker">SYSTEM READY · FRONTEND ENGINEER</div>
-            <h1 class="nickname">
-                <span>MR.W</span>
-                <span>BUILDS</span>
-                <span>INTERFACES</span>
-            </h1>
-            <div class="intro-summary">构建高性能、强交互、具有审美表达的前端体验。</div>
-            <div class="description"><%- markdown(theme.description) %></div>
-            <div class="intro-actions">
-                <a class="action-btn action-btn-primary" href="<%- url_for('/archives/') %>">READ LOGS</a>
-                <% if (theme.links && theme.links.Github) { %>
-                    <a class="action-btn" href="<%= theme.links.Github %>" target="_blank" rel="noopener noreferrer">SOURCE CODE</a>
-                <% } %>
-                <a class="action-btn action-btn-ghost" href="<%- url_for('/about/') %>">ABOUT ME</a>
-            </div>
-            <div class="intro-telemetry">
-                <span>POSTS <strong><%= site.posts.length %></strong></span>
-                <span>TAGS <strong><%= site.tags.length %></strong></span>
-                <span>CATEGORIES <strong><%= site.categories.length %></strong></span>
-                <span>MODE <strong>SHIP</strong></span>
-            </div>
-            <div class="links">
-                <% if (theme.links !== undefined) { %>
-                    <% for (var key in theme.links){ %>
-                        <a class="link-item" title="<%- key %>" aria-label="<%- key %>" href="<%= theme.links[key] %>" <% if (/^https?:\/\//.test(theme.links[key])) { %>target="_blank" rel="noopener noreferrer"<% } %>>
-                            <%if(theme.links_icon_enable){ %>
-                                <i class="iconfont icon-<%- key.toLowerCase() %>"></i>
-                            <%}%>
-                        </a>
-                    <% } %>
-                <% } %>
-            </div>
-            <div class="intro-scroll">SCROLL TO READ</div>
-        </div>
-        <div class="intro-visual">
-            <div class="hero-panel">
-                <div class="hero-panel-head">
-                    <span>PROFILE / ACTIVE</span>
-                    <span>LOCALHOST</span>
-                </div>
-                <div class="hero-panel-main">
-                    <a class="avatar" href="<%- url_for('/about/') %>">
-                        <img src="<%- url_for(theme.avatar) %>" alt="<%- theme.nickname %> avatar">
-                    </a>
-                    <div class="terminal-card">
-                        <div class="terminal-bar">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <div class="terminal-body">
-                            <div><span class="terminal-prefix">$</span> npm run build</div>
-                            <div><span class="terminal-prefix">></span> optimize interaction pipeline</div>
-                            <div><span class="terminal-prefix">></span> shape clean component systems</div>
-                            <div><span class="terminal-prefix">></span> deliver polished frontend stories</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="hero-posts">
-                    <div class="hero-posts-title">LATEST LOGS</div>
-                    <% site.posts.sort('date', -1).limit(3).each(function(post){ %>
-                        <a class="hero-post-item" href="<%- url_for(post.path) %>">
-                            <span class="hero-post-date"><%- date(post.date, 'YYYY.MM.DD') %></span>
-                            <span class="hero-post-name"><%- post.title %></span>
-                        </a>
-                    <% }) %>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="home-template">
+  <section class="home-hero">
+    <p class="home-eyebrow">前端工程师的小站</p>
+    <h1>把开发中的问题、方法和判断沉淀下来</h1>
+    <p class="home-subtitle">这里整理前端工程、AI 编程、JavaScript / CSS 基础、效率工具和真实项目里的问题复盘。首页先给你一张地图，再带你进入具体文章。</p>
+    <div class="home-actions">
+      <a class="home-action is-primary" href="<%- url_for('/archives/') %>">浏览全部文章</a>
+      <a class="home-action" href="<%- url_for('/category/') %>">按分类查看</a>
+    </div>
+    <div class="home-stats" aria-label="站点概况">
+      <div>
+        <strong><%= site.posts.length %></strong>
+        <span>篇文章</span>
+      </div>
+      <div>
+        <strong>AI</strong>
+        <span>开发成长</span>
+      </div>
+      <div>
+        <strong>FE</strong>
+        <span>前端实践</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="home-section-head">
+      <div>
+        <p class="section-kicker">内容方向</p>
+        <h2>这座小站主要写什么</h2>
+      </div>
+      <p>从日常开发里抽出可复用的经验：能解决问题，也能帮助下一次更快判断。</p>
+    </div>
+
+    <div class="topic-grid">
+      <article class="topic-card">
+        <span class="topic-index">01</span>
+        <h3>AI 与开发者成长</h3>
+        <p>记录 AI 编程方法、避坑经验，以及开发者在新工具时代需要继续打磨的能力。</p>
+        <a href="<%- url_for('/archives/') %>">查看相关文章</a>
+      </article>
+      <article class="topic-card">
+        <span class="topic-index">02</span>
+        <h3>前端工程实践</h3>
+        <p>沉淀项目结构、构建流程、组件组织、发布维护等工程化经验。</p>
+        <a href="<%- url_for('/category/') %>">进入分类</a>
+      </article>
+      <article class="topic-card">
+        <span class="topic-index">03</span>
+        <h3>基础与浏览器</h3>
+        <p>梳理 JavaScript、CSS、性能、浏览器机制等长期有用的基础知识。</p>
+        <a href="<%- url_for('/tag/') %>">浏览标签</a>
+      </article>
+      <article class="topic-card">
+        <span class="topic-index">04</span>
+        <h3>工具与问题复盘</h3>
+        <p>把调试、效率工具、线上问题和踩坑记录整理成下次能直接参考的清单。</p>
+        <a href="<%- url_for('/archives/') %>">翻看归档</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="home-section-head">
+      <div>
+        <p class="section-kicker">最近更新</p>
+        <h2>最新文章</h2>
+      </div>
+      <a class="section-more" href="<%- url_for('/archives/') %>">全部归档</a>
+    </div>
+
+    <div class="latest-list">
+      <% site.posts.sort('date', -1).limit(6).each(function(post){ %>
+        <% var tags = post.tags && post.tags.toArray ? post.tags.toArray().slice(0, 2) : []; %>
+        <a class="latest-row" href="<%- url_for(post.path) %>">
+          <time datetime="<%- date(post.date, 'YYYY-MM-DD') %>"><%- date(post.date, 'YYYY.MM.DD') %></time>
+          <span class="latest-title"><%- post.title %></span>
+          <span class="latest-tags">
+            <% if (tags.length) { %>
+              <% tags.forEach(function(tag){ %>
+                <em><%- tag.name %></em>
+              <% }) %>
+            <% } else { %>
+              <em>文章</em>
+            <% } %>
+          </span>
+        </a>
+      <% }) %>
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="home-section-head">
+      <div>
+        <p class="section-kicker">快速入口</p>
+        <h2>按你的阅读方式进入</h2>
+      </div>
+      <p>想系统翻阅、按主题查找，或了解站点本身，都可以从这里开始。</p>
+    </div>
+
+    <div class="site-link-grid">
+      <a class="site-link-card" href="<%- url_for('/archives/') %>">
+        <strong>文章归档</strong>
+        <span>按时间浏览全部内容</span>
+      </a>
+      <a class="site-link-card" href="<%- url_for('/category/') %>">
+        <strong>分类目录</strong>
+        <span>按主题聚合文章</span>
+      </a>
+      <a class="site-link-card" href="<%- url_for('/tag/') %>">
+        <strong>标签索引</strong>
+        <span>用关键词快速定位</span>
+      </a>
+      <a class="site-link-card" href="<%- url_for('/about/') %>">
+        <strong>关于我</strong>
+        <span>了解作者和小站</span>
+      </a>
+      <a class="site-link-card" href="<%- url_for('/friends/') %>">
+        <strong>友链</strong>
+        <span>访问相关站点</span>
+      </a>
+      <a class="site-link-card" href="<%- url_for('/ins/') %>">
+        <strong>相册</strong>
+        <span>查看图片记录</span>
+      </a>
+    </div>
+  </section>
 </div>

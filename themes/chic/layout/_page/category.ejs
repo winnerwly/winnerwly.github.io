@@ -1,7 +1,20 @@
-<%# single category page%>
-<div class="container">
-    <div class="post-wrap categories">
-        <h2 class="post-title">-&nbsp;分类归档&nbsp;·&nbsp;<%-page.category%>&nbsp;-</h2>
+<div class="container content-shell archive-shell">
+  <section class="content-hero">
+    <p class="content-kicker">Category</p>
+    <h1><%- page.category %></h1>
+    <p>当前分类下的文章集合。</p>
+    <div class="content-stats">
+      <span><strong><%= page.posts.length %></strong> 篇文章</span>
     </div>
-    <%- partial('archive', {pagination: config.category, index: true}) %>
+  </section>
+
+  <section class="timeline-panel">
+    <% page.posts.sort('date', -1).each(function (post) { %>
+      <article class="archive-entry">
+        <a class="archive-entry-title" href="<%- url_for(post.path) %>"><%= post.title %></a>
+        <time class="archive-entry-date"><%- date(post.date, theme.date_format) %></time>
+      </article>
+    <% }) %>
+    <%- partial('_partial/paginator') %>
+  </section>
 </div>
