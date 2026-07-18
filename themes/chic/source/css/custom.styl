@@ -1,5 +1,6 @@
 html
   background: #07090d
+  overflow-x: hidden
   &::-webkit-scrollbar-thumb
     background-color: rgba(255, 255, 255, 0.26)
     &:hover
@@ -7,6 +8,7 @@ html
 
 body
   min-width: 320px
+  overflow-x: hidden
   background: #07090d
   color: #f7f9fc
   letter-spacing: 0
@@ -21,7 +23,7 @@ body
     inset: 0
     z-index: -1
     pointer-events: none
-    background: radial-gradient(circle at 50% 0%, rgba(43, 255, 143, 0.14), transparent 28%), linear-gradient(180deg, rgba(255,255,255,0.035), transparent 280px)
+    background: radial-gradient(circle at 18% 8%, rgba(49, 236, 134, 0.16), transparent 25%), radial-gradient(circle at 82% 10%, rgba(56, 189, 248, 0.10), transparent 24%), linear-gradient(180deg, rgba(255,255,255,0.04), transparent 320px)
 
 a
   color: #f7f9fc
@@ -47,99 +49,143 @@ $text-2xl = 24px
 $text-section = clamp(30px, 3vw, 36px)
 $text-hero = clamp(46px, 5vw, 64px)
 
-.navbar,
-.navbar-mobile
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08)
-  background: rgba(7, 9, 13, 0.88)
-  backdrop-filter: blur(18px)
-
-.navbar
+.site-header
   position: sticky
   top: 0
-  z-index: 30
-  height: auto
+  z-index: 70
   line-height: 1
+  isolation: isolate
 
-  .container
-    max-width: 1360px
-    height: 64px
-    padding: 0 28px
-    display: flex
-    align-items: center
-    justify-content: space-between
-    gap: 28px
+.site-nav
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10)
+  background: linear-gradient(180deg, rgba(7, 9, 13, 0.92), rgba(7, 9, 13, 0.78))
+  backdrop-filter: blur(20px)
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18)
 
-.header-logo a,
-.navbar-mobile .navbar-header > a
+.site-nav-shell
+  max-width: 1360px
+  height: 68px
+  display: grid
+  grid-template-columns: auto minmax(0, 1fr) auto
+  align-items: center
+  gap: 24px
+  padding: 0 28px
+
+.site-brand
+  display: inline-flex
+  align-items: center
+  gap: 10px
+  min-width: 0
+  color: #f7f9fc
+  text-decoration: none
+
+  &:hover
+    color: #f7f9fc
+
+.site-brand-mark
+  width: 34px
+  height: 34px
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  flex: 0 0 auto
+  border: 1px solid rgba(49, 236, 134, 0.52)
+  border-radius: 12px
+  background: radial-gradient(circle at 35% 20%, rgba(49, 236, 134, 0.42), rgba(49, 236, 134, 0.10) 58%, rgba(255, 255, 255, 0.04))
+  color: #31ec86
+  font-size: $text-base
+  font-weight: 900
+  box-shadow: 0 14px 36px rgba(49, 236, 134, 0.10)
+
+.site-brand-text
   display: inline-flex
   align-items: center
   gap: 2px
+  min-width: 0
   color: #f7f9fc
   font-size: $text-xl
-  font-weight: 800
+  font-weight: 900
   letter-spacing: 0
-  text-transform: uppercase
+  white-space: nowrap
 
   span
     color: #31ec86
 
-.navbar-actions
+.site-nav-links
   display: flex
   align-items: center
-  gap: 18px
+  justify-content: center
+  gap: 8px
+  min-width: 0
 
-.navbar .menu
-  display: flex
+.site-nav-link
+  height: 40px
+  display: inline-flex
   align-items: center
-  gap: 18px
+  gap: 8px
+  padding: 0 13px
+  border: 1px solid transparent
+  border-radius: 999px
+  color: rgba(247, 249, 252, 0.66)
+  font-size: $text-sm
+  font-weight: 800
+  text-decoration: none
+  white-space: nowrap
+  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease, transform 0.18s ease
 
-  a
-    display: inline-flex
-    align-items: center
-    gap: 7px
-    padding: 0
-    color: rgba(247, 249, 252, 0.62)
-    font-size: $text-sm
-    font-weight: 600
-    line-height: 64px
+  .nav-icon
+    width: 17px
+    height: 17px
+    color: rgba(49, 236, 134, 0.74)
+    fill: none
+    flex: 0 0 auto
+    stroke: currentColor
+    stroke-linecap: round
+    stroke-linejoin: round
+    stroke-width: 2
+
+  &:hover
+    border-color: rgba(49, 236, 134, 0.26)
+    background: rgba(49, 236, 134, 0.075)
+    color: #f7f9fc
+    transform: translateY(-1px)
 
     .nav-icon
-      width: 17px
-      height: 17px
-      color: rgba(49, 236, 134, 0.72)
-      fill: none
-      flex: 0 0 auto
-      line-height: 1
-      stroke: currentColor
-      stroke-linecap: round
-      stroke-linejoin: round
-      stroke-width: 2
+      color: #31ec86
 
-    &:hover
-      color: #f7f9fc
+.site-nav-actions
+  display: inline-flex
+  align-items: center
+  justify-content: flex-end
+  gap: 10px
 
-      .nav-icon
-        color: #31ec86
-
-.theme-toggle
-  width: 38px
-  min-width: 38px
-  height: 38px
+.theme-toggle,
+.site-menu-toggle,
+.site-menu-close
+  height: 40px
   display: inline-flex
   align-items: center
   justify-content: center
-  padding: 0
-  border: 1px solid rgba(255, 255, 255, 0.18)
-  border-radius: 50%
-  background: #07090d
-  color: #ffffff
+  padding: 0 13px
+  border: 1px solid rgba(255, 255, 255, 0.16)
+  border-radius: 14px
+  background: rgba(255, 255, 255, 0.055)
+  color: #f7f9fc
+  font-size: $text-sm
+  font-weight: 900
   cursor: pointer
-  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease
+  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease, transform 0.18s ease
 
   &:hover
-    border-color: rgba(49, 236, 134, 0.72)
-    background: #0d1118
+    border-color: rgba(49, 236, 134, 0.48)
+    background: rgba(49, 236, 134, 0.10)
+    color: #31ec86
     transform: translateY(-1px)
+
+.theme-toggle
+  width: 40px
+  min-width: 40px
+  padding: 0
 
 .theme-icon
   display: none
@@ -155,20 +201,153 @@ $text-hero = clamp(46px, 5vw, 64px)
 .theme-toggle[data-theme-mode='light'] .theme-icon-sun
   display: block
 
-.navbar-mobile
+.site-menu-toggle
   display: none
+  gap: 8px
+  min-width: 88px
+
+.site-menu-lines
+  width: 16px
+  height: 12px
+  display: inline-flex
+  flex-direction: column
+  justify-content: space-between
+  flex: 0 0 auto
+
+  i
+    display: block
+    width: 100%
+    height: 2px
+    border-radius: 999px
+    background: currentColor
+    transition: transform 0.18s ease, opacity 0.18s ease
+
+.site-menu-toggle.is-open
+  .site-menu-lines
+    i:first-child
+      transform: translateY(5px) rotate(45deg)
+
+    i:last-child
+      transform: translateY(-5px) rotate(-45deg)
+
+.site-mobile-menu
+  position: fixed
+  inset: 0
+  z-index: 90
+  opacity: 0
+  pointer-events: none
+  transition: opacity 0.2s ease
+
+  &.is-open
+    opacity: 1
+    pointer-events: auto
+
+    .site-mobile-panel
+      transform: translateX(0)
+
+.site-mobile-backdrop
+  position: absolute
+  inset: 0
+  border: 0
+  background: rgba(3, 6, 10, 0.58)
+  backdrop-filter: blur(10px)
+  cursor: pointer
+
+.site-mobile-panel
+  position: absolute
+  top: 0
+  right: 0
+  width: min(420px, 100vw)
+  height: 100vh
+  height: 100dvh
+  display: flex
+  flex-direction: column
+  gap: 12px
+  padding: 16px
+  overflow-y: auto
+  background: radial-gradient(circle at 18% 0%, rgba(49, 236, 134, 0.16), transparent 30%), linear-gradient(180deg, #090d14 0%, #05080d 100%)
+  box-shadow: -30px 0 90px rgba(0, 0, 0, 0.36)
+  transform: translateX(105%)
+  transition: transform 0.24s ease
+
+.site-mobile-head
+  min-height: 54px
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: 14px
+  padding-bottom: 12px
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10)
+
+.site-brand-mobile
+  min-width: 0
+
+.site-mobile-links
+  display: grid
+  gap: 10px
+
+.site-mobile-link
+  min-height: 58px
+  display: flex
+  align-items: center
+  gap: 14px
+  padding: 0 16px
+  border: 1px solid rgba(255, 255, 255, 0.10)
+  border-radius: 14px
+  background: rgba(255, 255, 255, 0.05)
+  color: #f7f9fc
+  font-size: $text-base
+  font-weight: 900
+  text-decoration: none
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04)
+
+  .nav-icon
+    width: 20px
+    height: 20px
+    color: #31ec86
+    fill: none
+    flex: 0 0 auto
+    stroke: currentColor
+    stroke-linecap: round
+    stroke-linejoin: round
+    stroke-width: 2
+
+  &:hover
+    border-color: rgba(49, 236, 134, 0.42)
+    background: rgba(49, 236, 134, 0.09)
+    color: #31ec86
+
+html.nav-menu-open,
+body.nav-menu-open
+  overflow: hidden
 
 .home-template
   max-width: 1130px
   margin: 0 auto
   padding: 68px 24px 92px
+  position: relative
+  overflow: hidden
+
+  &:before
+    content: ''
+    position: absolute
+    top: 36px
+    right: 20px
+    width: 520px
+    height: 520px
+    z-index: -1
+    opacity: 0.55
+    background-image: linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px)
+    background-size: 34px 34px
+    mask-image: radial-gradient(circle, #000 0%, transparent 68%)
 
 .home-hero
   min-height: 430px
-  display: flex
-  flex-direction: column
+  display: grid
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr)
   align-items: flex-start
-  justify-content: center
+  gap: 48px
+  padding-top: 30px
 
   h1
     margin: 0
@@ -177,6 +356,10 @@ $text-hero = clamp(46px, 5vw, 64px)
     font-size: $text-hero
     line-height: 1.14
     font-weight: 800
+
+.home-hero-copy
+  align-self: center
+  min-width: 0
 
 .home-eyebrow
   margin: 0 0 18px
@@ -207,34 +390,171 @@ $text-hero = clamp(46px, 5vw, 64px)
   height: 52px
   padding: 0 22px
   border: 1px solid rgba(255, 255, 255, 0.55)
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.18)
   color: #f7f9fc
   font-size: $text-base
   font-weight: 800
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.2s ease
 
   &:hover
     border-color: #31ec86
     color: #31ec86
+    transform: translateY(-2px)
 
   &.is-primary
     border-color: #31ec86
     background: #31ec86
     color: #061009
+    box-shadow: 0 18px 56px rgba(49, 236, 134, 0.18)
 
     &:hover
       background: #62f3a5
       color: #061009
+
+.home-visual
+  align-self: center
+  justify-self: end
+  position: relative
+  width: min(100%, 390px)
+  min-height: 390px
+  border: 1px solid rgba(255, 255, 255, 0.12)
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025))
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 34px 90px rgba(0, 0, 0, 0.32)
+  overflow: hidden
+
+  &:before
+    content: ''
+    position: absolute
+    inset: 18px
+    border: 1px solid rgba(49, 236, 134, 0.18)
+    background-image: linear-gradient(rgba(49, 236, 134, 0.10) 1px, transparent 1px), linear-gradient(90deg, rgba(49, 236, 134, 0.10) 1px, transparent 1px)
+    background-size: 28px 28px
+    opacity: 0.72
+
+  &:after
+    content: ''
+    position: absolute
+    left: -20%
+    right: -20%
+    top: 44%
+    height: 1px
+    background: linear-gradient(90deg, transparent, rgba(49, 236, 134, 0.8), transparent)
+    transform: rotate(-12deg)
+
+.visual-orbit
+  position: absolute
+  inset: 42px
+  border: 1px solid rgba(255, 255, 255, 0.12)
+
+  span
+    position: absolute
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    min-width: 48px
+    height: 34px
+    padding: 0 10px
+    border: 1px solid rgba(49, 236, 134, 0.38)
+    background: rgba(7, 9, 13, 0.78)
+    color: #31ec86
+    font-size: $text-xs
+    font-weight: 900
+
+    &:nth-child(1)
+      top: -17px
+      left: 26px
+
+    &:nth-child(2)
+      right: -18px
+      top: 92px
+
+    &:nth-child(3)
+      left: 74px
+      bottom: -17px
+
+.visual-terminal
+  position: absolute
+  left: 54px
+  right: 42px
+  top: 122px
+  min-height: 142px
+  padding: 18px
+  border: 1px solid rgba(255, 255, 255, 0.16)
+  background: rgba(5, 8, 12, 0.84)
+  backdrop-filter: blur(12px)
+
+  p,
+  small
+    margin: 0
+    color: #8d98aa
+    font-size: $text-xs
+    font-weight: 800
+    line-height: 1.7
+
+  strong
+    display: block
+    margin: 16px 0 8px
+    color: #f7f9fc
+    font-size: $text-2xl
+    line-height: 1.2
+
+.visual-bar
+  display: flex
+  gap: 7px
+  margin-bottom: 18px
+
+  i
+    width: 8px
+    height: 8px
+    border-radius: 50%
+    background: rgba(255, 255, 255, 0.28)
+
+    &:first-child
+      background: #31ec86
+
+.visual-flow
+  position: absolute
+  left: 32px
+  right: 32px
+  bottom: 34px
+  display: grid
+  grid-template-columns: repeat(3, minmax(0, 1fr))
+  gap: 8px
+
+  span
+    min-width: 0
+    padding: 10px 8px
+    border: 1px solid rgba(255, 255, 255, 0.12)
+    background: rgba(255, 255, 255, 0.04)
+    color: #a9b3c3
+    font-size: $text-xs
+    font-weight: 800
+    text-align: center
 
 .home-stats
   display: grid
   grid-template-columns: repeat(3, minmax(0, 1fr))
   gap: 14px
   width: 100%
+  grid-column: 1 / -1
   margin-top: 48px
 
   div
+    position: relative
+    overflow: hidden
     padding: 18px 20px
     border: 1px solid rgba(255, 255, 255, 0.12)
-    background: rgba(255, 255, 255, 0.035)
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025))
+
+    &:before
+      content: ''
+      position: absolute
+      left: 0
+      top: 0
+      width: 3px
+      height: 100%
+      background: #31ec86
+      opacity: 0.86
 
   strong
     display: block
@@ -299,12 +619,33 @@ $text-hero = clamp(46px, 5vw, 64px)
   gap: 18px
 
 .topic-card
+  position: relative
+  overflow: hidden
   min-height: 260px
   display: flex
   flex-direction: column
   padding: 24px
   border: 1px solid rgba(255, 255, 255, 0.12)
-  background: rgba(255, 255, 255, 0.035)
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025))
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease
+
+  &:before
+    content: ''
+    position: absolute
+    inset: 0 0 auto
+    height: 3px
+    background: linear-gradient(90deg, #31ec86, rgba(56, 189, 248, 0.72), transparent)
+    opacity: 0
+    transition: opacity 0.2s ease
+
+  &:hover
+    border-color: rgba(49, 236, 134, 0.42)
+    background: linear-gradient(180deg, rgba(49, 236, 134, 0.08), rgba(255, 255, 255, 0.035))
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22)
+    transform: translateY(-4px)
+
+    &:before
+      opacity: 1
 
   h3
     margin: 22px 0 0
@@ -339,21 +680,41 @@ $text-hero = clamp(46px, 5vw, 64px)
   color: #31ec86
   font-size: $text-xs
   font-weight: 800
+  background: rgba(49, 236, 134, 0.06)
 
 .latest-list
   border-top: 1px solid rgba(255, 255, 255, 0.10)
 
 .latest-row
+  position: relative
   min-height: 82px
   display: grid
   grid-template-columns: 136px minmax(0, 1fr) 220px
   align-items: center
   gap: 24px
+  padding: 0 18px
   border-bottom: 1px solid rgba(255, 255, 255, 0.10)
   color: #f7f9fc
+  transition: background 0.2s ease, color 0.2s ease, padding-left 0.2s ease
 
   &:hover
+    background: rgba(49, 236, 134, 0.055)
     color: #31ec86
+    padding-left: 28px
+
+    &:before
+      opacity: 1
+
+  &:before
+    content: ''
+    position: absolute
+    left: 0
+    top: 18px
+    bottom: 18px
+    width: 3px
+    background: #31ec86
+    opacity: 0
+    transition: opacity 0.2s ease
 
   time
     color: #8d98aa
@@ -395,6 +756,7 @@ $text-hero = clamp(46px, 5vw, 64px)
   gap: 14px
 
 .site-link-card
+  position: relative
   display: flex
   flex-direction: column
   min-height: 116px
@@ -402,6 +764,19 @@ $text-hero = clamp(46px, 5vw, 64px)
   border: 1px solid rgba(255, 255, 255, 0.12)
   background: rgba(255, 255, 255, 0.03)
   color: #f7f9fc
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.2s ease
+
+  &:after
+    content: '→'
+    position: absolute
+    right: 20px
+    top: 20px
+    color: rgba(49, 236, 134, 0.72)
+    font-size: $text-lg
+    line-height: 1
+    transform: translateX(-4px)
+    opacity: 0
+    transition: opacity 0.2s ease, transform 0.2s ease
 
   strong
     color: inherit
@@ -416,7 +791,13 @@ $text-hero = clamp(46px, 5vw, 64px)
 
   &:hover
     border-color: rgba(49, 236, 134, 0.6)
+    background: rgba(49, 236, 134, 0.055)
     color: #31ec86
+    transform: translateY(-2px)
+
+    &:after
+      opacity: 1
+      transform: translateX(0)
 
 .post-wrap,
 .archive,
@@ -525,14 +906,12 @@ $text-hero = clamp(46px, 5vw, 64px)
   a
     color: #101722
 
-  .navbar,
-  .navbar-mobile
+  .site-nav
     background: rgba(255, 255, 255, 0.9)
-    border-bottom-color: rgba(16, 23, 34, 0.1)
+    border-bottom-color: rgba(16, 23, 34, 0.10)
+    box-shadow: 0 16px 40px rgba(16, 23, 34, 0.08)
 
-  .header-logo a,
-  .navbar-mobile .navbar-header > a,
-  .navbar .menu a,
+  .site-brand-text,
   .home-hero h1,
   .home-section-head h2,
   .home-stats strong,
@@ -543,17 +922,33 @@ $text-hero = clamp(46px, 5vw, 64px)
   .post-title
     color: #101722
 
-  .navbar .menu a
+  .site-brand:hover
+    color: #101722
+
+  .site-brand-mark
+    border-color: rgba(21, 215, 118, 0.38)
+    background: rgba(21, 215, 118, 0.10)
+    color: #0f9f5a
+
+  .site-nav-link
     color: #5b6676
 
-  .theme-toggle
+    &:hover
+      border-color: rgba(21, 215, 118, 0.28)
+      background: rgba(21, 215, 118, 0.08)
+      color: #101722
+
+  .theme-toggle,
+  .site-menu-toggle,
+  .site-menu-close
     border-color: rgba(16, 23, 34, 0.14)
     background: #ffffff
     color: #101722
 
     &:hover
       border-color: rgba(21, 215, 118, 0.65)
-      background: #ffffff
+      background: rgba(21, 215, 118, 0.08)
+      color: #0f9f5a
 
   .home-subtitle,
   .home-section-head p,
@@ -575,6 +970,41 @@ $text-hero = clamp(46px, 5vw, 64px)
     border-color: #15d776
     background: #15d776
     color: #061009
+
+  .home-template:before
+    background-image: linear-gradient(rgba(16, 23, 34, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 23, 34, 0.07) 1px, transparent 1px)
+
+  .home-visual
+    border-color: rgba(16, 23, 34, 0.12)
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.86), rgba(235, 241, 248, 0.72))
+    box-shadow: 0 30px 80px rgba(16, 23, 34, 0.12)
+
+    &:before
+      border-color: rgba(21, 215, 118, 0.22)
+      background-image: linear-gradient(rgba(21, 215, 118, 0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(21, 215, 118, 0.12) 1px, transparent 1px)
+
+  .visual-orbit
+    border-color: rgba(16, 23, 34, 0.12)
+
+    span
+      background: rgba(255, 255, 255, 0.84)
+      color: #0fa85c
+
+  .visual-terminal
+    border-color: rgba(16, 23, 34, 0.12)
+    background: rgba(255, 255, 255, 0.86)
+
+    strong
+      color: #101722
+
+    p,
+    small
+      color: #657184
+
+  .visual-flow span
+    border-color: rgba(16, 23, 34, 0.12)
+    background: rgba(255, 255, 255, 0.72)
+    color: #657184
 
   .home-section,
   .home-stats div,
@@ -601,6 +1031,11 @@ $text-hero = clamp(46px, 5vw, 64px)
   .site-link-card
     background: rgba(255, 255, 255, 0.72)
 
+  .topic-card:hover,
+  .site-link-card:hover,
+  .latest-row:hover
+    background: rgba(21, 215, 118, 0.08)
+
   .latest-title,
   .archive-item-link,
   .post-content,
@@ -614,111 +1049,105 @@ $text-hero = clamp(46px, 5vw, 64px)
   .post-content ol
     color: #3d4756
 
-  .navbar-mobile .menu
-    background: #ffffff
+  .site-mobile-backdrop
+    background: rgba(16, 23, 34, 0.38)
 
-    a.menu-item
-      color: #101722
-      border-bottom-color: rgba(16, 23, 34, 0.12)
+  .site-mobile-panel
+    background: radial-gradient(circle at 18% 0%, rgba(21, 215, 118, 0.12), transparent 28%), linear-gradient(180deg, #ffffff 0%, #f5f8fc 100%)
+    box-shadow: -30px 0 90px rgba(16, 23, 34, 0.16)
 
-      .nav-icon
-        color: #15b966
+  .site-mobile-head
+    border-bottom-color: rgba(16, 23, 34, 0.10)
 
-  .theme-toggle-mobile,
-  .menu-toggle,
-  .menu-close
-    border-color: rgba(16, 23, 34, 0.16)
-    background: rgba(16, 23, 34, 0.06)
+  .site-mobile-link
     color: #101722
+    border-color: rgba(16, 23, 34, 0.10)
+    background: rgba(255, 255, 255, 0.78)
+
+    .nav-icon
+      color: #15b966
+
+    &:hover
+      border-color: rgba(21, 215, 118, 0.36)
+      background: rgba(21, 215, 118, 0.08)
+      color: #0f9f5a
 
 @media (max-width: 1023px)
-  .navbar
+  .site-nav-shell
+    height: 62px
+    grid-template-columns: minmax(0, 1fr) auto
+    gap: 12px
+    padding: 0 14px
+
+  .site-nav-links
     display: none
 
-  .navbar-mobile
-    display: block !important
-    position: sticky
-    top: 0
-    z-index: 40
+  .site-brand
+    overflow: hidden
 
-    .container
-      padding: 0
-      line-height: 1
-      background: transparent
+  .site-brand-mark
+    width: 32px
+    height: 32px
+    border-radius: 11px
+    font-size: $text-sm
 
-    .navbar-header
-      height: 64px
-      display: flex
-      align-items: center
-      justify-content: space-between
-      padding: 0 20px
+  .site-brand-text
+    max-width: 48vw
+    overflow: hidden
+    font-size: $text-lg
+    text-overflow: ellipsis
 
-    .menu
-      position: fixed
-      inset: 0
-      left: 100vw
-      padding: 92px 24px 28px
-      background: #07090d
-      transition: left 0.2s ease
+  .site-nav-actions
+    gap: 8px
 
-      &.active
-        left: 0
-
-      a.menu-item
-        display: flex
-        align-items: center
-        gap: 12px
-        min-height: 56px
-        border-bottom: 1px solid rgba(255, 255, 255, 0.12)
-        color: #f7f9fc
-
-        .nav-icon
-          width: 22px
-          height: 22px
-          color: #31ec86
-          fill: none
-          flex: 0 0 auto
-          stroke: currentColor
-          stroke-linecap: round
-          stroke-linejoin: round
-          stroke-width: 2
-
-  .mobile-actions
-    display: flex
-    align-items: center
-    gap: 10px
-
-  .theme-toggle-mobile,
-  .menu-toggle,
-  .menu-close
-    min-width: 42px
-    height: 36px
-    border: 1px solid rgba(255, 255, 255, 0.18)
-    background: rgba(255, 255, 255, 0.08)
-    color: #f7f9fc
-    font-weight: 800
-
-  .theme-toggle-mobile
-    width: 36px
-    min-width: 36px
-    height: 36px
+  .theme-toggle
+    width: 38px
+    min-width: 38px
+    height: 38px
+    border-radius: 12px
 
     .theme-icon
       width: 18px
       height: 18px
 
-  .menu-toggle,
-  .menu-close
-    padding: 0 14px
+  .site-menu-toggle
+    display: inline-flex
+    width: 86px
+    min-width: 86px
+    height: 38px
+    border-radius: 12px
+    white-space: nowrap
 
-  .menu-close
-    margin-top: 24px
+  .site-menu-close
+    height: 38px
+    padding: 0 12px
+    border-radius: 12px
+
+  .site-mobile-panel
+    width: 100vw
+    padding: 16px
+
+  .site-mobile-link
+    min-height: 58px
+    border-radius: 13px
 
   .home-template
     padding-top: 42px
 
   .home-hero
+    grid-template-columns: 1fr
     min-height: 360px
+    gap: 28px
+
+  .home-visual
+    justify-self: stretch
+    width: 100%
+    min-height: 300px
+
+  .visual-terminal
+    left: 42px
+    right: 42px
+    top: 88px
 
   .topic-grid
     grid-template-columns: repeat(2, minmax(0, 1fr))
@@ -745,6 +1174,13 @@ $text-hero = clamp(46px, 5vw, 64px)
     min-height: 0
     padding-top: 28px
 
+    h1
+      max-width: 100%
+      font-size: clamp(40px, 13vw, 54px)
+
+  .home-subtitle
+    max-width: 100%
+
   .home-actions
     width: 100%
 
@@ -754,6 +1190,31 @@ $text-hero = clamp(46px, 5vw, 64px)
 
   .home-stats
     grid-template-columns: 1fr
+
+  .home-visual
+    min-height: 238px
+
+  .visual-orbit
+    inset: 26px
+
+  .visual-terminal
+    left: 28px
+    right: 28px
+    top: 70px
+    min-height: 112px
+    padding: 14px
+
+    strong
+      margin: 10px 0 4px
+      font-size: $text-xl
+
+  .visual-flow
+    left: 20px
+    right: 20px
+    bottom: 22px
+
+    span
+      padding: 8px 4px
 
   .home-section
     margin-top: 56px
@@ -773,6 +1234,9 @@ $text-hero = clamp(46px, 5vw, 64px)
     grid-template-columns: 1fr
     gap: 6px
     padding: 18px 0
+
+    &:hover
+      padding-left: 12px
 
   .latest-title
     white-space: normal
@@ -831,7 +1295,7 @@ $text-hero = clamp(46px, 5vw, 64px)
 
   span
     display: inline-flex
-    align-items: baseline
+    align-items: center
     gap: 8px
     min-height: 38px
     padding: 0 14px
@@ -839,6 +1303,7 @@ $text-hero = clamp(46px, 5vw, 64px)
     color: #8d98aa
     font-size: $text-sm
     font-weight: 700
+    line-height: 1
 
   strong
     color: #f7f9fc
@@ -1227,46 +1692,71 @@ $text-hero = clamp(46px, 5vw, 64px)
   flex-wrap: wrap
   justify-content: center
   align-items: center
-  gap: 12px
+  gap: 10px
   width: 100%
-  margin-top: 32px
-  padding: 18px 0 2px
+  max-width: 100%
+  margin: 38px auto 0
+  padding: 24px 0 4px
+  border: 0
+  border-top: 1px solid rgba(255, 255, 255, 0.08)
+  border-radius: 0
+  background: transparent
+  box-shadow: none
+  white-space: normal
 
   a,
   span
     display: inline-flex
     align-items: center
     justify-content: center
-    min-width: 40px
-    height: 40px
+    min-width: 38px
+    height: 38px
+    margin: 0
     padding: 0 12px
-    border: 1px solid rgba(255, 255, 255, 0.16)
-    border-radius: 6px
-    background: rgba(255, 255, 255, 0.04)
-    color: #8e9aab
+    box-sizing: border-box
+    border: 1px solid rgba(255, 255, 255, 0.12)
+    border-radius: 10px
+    background: rgba(255, 255, 255, 0.035)
+    color: #98a4b5
     font-size: $text-sm
     font-weight: 800
+    letter-spacing: 0
     line-height: 1
     text-decoration: none
     box-shadow: none
-    transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease
+    transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease, transform 0.18s ease
+
+    &:before,
+    &:after
+      display: none !important
+      content: none !important
+
+  .page-number
+    position: static
+    box-sizing: border-box
+    margin: 0
+    padding: 0 12px
+    display: inline-flex
 
   .extend
+    min-width: 46px
+    color: #94a3b8
     font-size: $text-base
     font-weight: 800
 
   a:hover
     color: #31ec86
-    border-color: rgba(49, 236, 134, 0.62)
+    border-color: rgba(49, 236, 134, 0.42)
     background: rgba(49, 236, 134, 0.08)
+    transform: translateY(-1px)
 
   a:focus-visible
     outline: 2px solid rgba(49, 236, 134, 0.78)
     outline-offset: 2px
 
   .space
-    min-width: 28px
-    height: 40px
+    min-width: 26px
+    height: 34px
     padding: 0
     border-color: transparent
     background: transparent
@@ -1279,13 +1769,13 @@ $text-hero = clamp(46px, 5vw, 64px)
     color: #061009
     background: #31ec86
     border-color: #31ec86
-    box-shadow: none
+    box-shadow: 0 12px 28px rgba(49, 236, 134, 0.18)
     cursor: default
 
   .disabled
-    color: #4f5968
-    border-color: rgba(255, 255, 255, 0.08)
-    background: rgba(255, 255, 255, 0.025)
+    color: #5f6876
+    border-color: transparent
+    background: transparent
     cursor: not-allowed
     pointer-events: none
 
@@ -1362,19 +1852,23 @@ $text-hero = clamp(46px, 5vw, 64px)
     color: #061009
     background: #15d776
     border-color: #15d776
-    box-shadow: none
+    box-shadow: 0 12px 28px rgba(21, 215, 118, 0.18)
 
   .pagination
+    border-top-color: rgba(16, 23, 34, 0.08)
+    background: transparent
+    box-shadow: none
+
     a,
     span
-      background: #ffffff
       color: #667085
-      border-color: rgba(16, 23, 34, 0.14)
+      border-color: rgba(16, 23, 34, 0.12)
+      background: #ffffff
       box-shadow: none
 
     a:hover
-      color: #0f172a
-      border-color: rgba(21, 215, 118, 0.62)
+      color: #0f9f5a
+      border-color: rgba(21, 215, 118, 0.44)
       background: rgba(21, 215, 118, 0.08)
 
     .space
@@ -1385,7 +1879,7 @@ $text-hero = clamp(46px, 5vw, 64px)
     .disabled
       color: #b5bdc9
       border-color: rgba(16, 23, 34, 0.08)
-      background: rgba(16, 23, 34, 0.03)
+      background: rgba(255, 255, 255, 0.56)
 
 @media (max-width: 1279px)
   .post-toc
@@ -1441,21 +1935,23 @@ $text-hero = clamp(46px, 5vw, 64px)
     text-align: left
 
   .pagination
-    gap: 8px
+    gap: 6px
     margin-top: 26px
-    padding-top: 16px
+    padding: 18px 0 0
+    border-radius: 0
 
     a,
     span
-      min-width: 34px
-      height: 34px
-      padding: 0 9px
-      border-radius: 6px
+      min-width: 30px
+      height: 32px
+      padding: 0 7px
+      border-radius: 9px
       font-size: $text-xs
 
     .extend
+      min-width: 32px
       font-size: $text-sm
 
     .space
-      min-width: 22px
-      height: 34px
+      min-width: 18px
+      height: 32px

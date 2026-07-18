@@ -1,61 +1,119 @@
-<header class="site-header">
-  <nav class="navbar">
-    <div class="container nav-container">
-      <div class="navbar-header header-logo">
-        <a href="<%- config.root %>" aria-label="首页">前端<span>小站</span></a>
+<%
+  var navItems = [
+    {
+      href: url_for('/'),
+      label: '首页',
+      icon: '<svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>'
+    },
+    {
+      href: url_for('/archives/'),
+      label: '文章',
+      icon: '<svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>'
+    },
+    {
+      href: url_for('/ins/'),
+      label: 'INS',
+      icon: '<svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg>'
+    },
+    {
+      href: url_for('/category/'),
+      label: '分类',
+      icon: '<svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>'
+    },
+    {
+      href: url_for('/tag/'),
+      label: '标签',
+      icon: '<svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg>'
+    },
+    {
+      href: url_for('/about/'),
+      label: '关于',
+      icon: '<svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M16 10h2"/><path d="M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/></svg>'
+    },
+    {
+      href: url_for('/friends/'),
+      label: '友链',
+      icon: '<svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></svg>'
+    }
+  ];
+%>
+<header class="site-header" id="site-header">
+  <nav class="site-nav" aria-label="主导航">
+    <div class="container site-nav-shell">
+      <a class="site-brand" href="<%- config.root %>" aria-label="首页">
+        <span class="site-brand-mark" aria-hidden="true">W</span>
+        <span class="site-brand-text">前端<span>小站</span></span>
+      </a>
+
+      <div class="site-nav-links" aria-label="主要页面">
+        <% navItems.forEach(function (item) { %>
+          <a class="site-nav-link" href="<%- item.href %>"><%- item.icon %><span><%- item.label %></span></a>
+        <% }); %>
       </div>
-      <div class="navbar-actions">
-        <div class="menu navbar-right">
-          <a class="menu-item" href="<%- url_for('/') %>"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg><span>首页</span></a>
-          <a class="menu-item" href="<%- url_for('/archives/') %>"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg><span>文章</span></a>
-          <a class="menu-item" href="<%- url_for('/ins/') %>"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg><span>INS</span></a>
-          <a class="menu-item" href="<%- url_for('/category/') %>"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg><span>分类</span></a>
-          <a class="menu-item" href="<%- url_for('/tag/') %>"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg><span>标签</span></a>
-          <a class="menu-item" href="<%- url_for('/about/') %>"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M16 10h2"/><path d="M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/></svg><span>关于</span></a>
-          <a class="menu-item" href="<%- url_for('/friends/') %>"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></svg><span>友链</span></a>
-        </div>
+
+      <div class="site-nav-actions">
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换主题" title="切换主题">
           <svg class="theme-icon theme-icon-sun" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
           <svg class="theme-icon theme-icon-moon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20.99 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.78 9.79z"/></svg>
+        </button>
+        <button class="site-menu-toggle" id="site-menu-toggle" type="button" aria-label="打开菜单" aria-controls="site-mobile-menu" aria-expanded="false">
+          <span class="site-menu-lines" aria-hidden="true"><i></i><i></i></span>
+          <span class="site-menu-text">菜单</span>
         </button>
       </div>
     </div>
   </nav>
 
-  <nav class="navbar-mobile" id="nav-mobile">
-    <div class="container">
-      <div class="navbar-header">
-        <a href="<%- config.root %>">前端<span>小站</span></a>
-        <div class="mobile-actions">
-          <button class="theme-toggle theme-toggle-mobile" id="mobile-toggle-theme" type="button" aria-label="切换主题" title="切换主题">
-            <svg class="theme-icon theme-icon-sun" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-            <svg class="theme-icon theme-icon-moon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20.99 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.78 9.79z"/></svg>
-          </button>
-          <button class="menu-toggle" type="button" onclick="mobileBtn()" aria-label="打开菜单">菜单</button>
-        </div>
+  <div class="site-mobile-menu" id="site-mobile-menu" aria-hidden="true">
+    <button class="site-mobile-backdrop" type="button" aria-label="关闭菜单" data-menu-close></button>
+    <section class="site-mobile-panel" role="dialog" aria-modal="true" aria-label="站点菜单">
+      <div class="site-mobile-head">
+        <a class="site-brand site-brand-mobile" href="<%- config.root %>" aria-label="首页" data-menu-close>
+          <span class="site-brand-mark" aria-hidden="true">W</span>
+          <span class="site-brand-text">前端<span>小站</span></span>
+        </a>
+        <button class="site-menu-close" type="button" aria-label="关闭菜单" data-menu-close>关闭</button>
       </div>
-      <div class="menu" id="mobile-menu">
-        <div class="menu-item-title">
-          <a href="<%- config.root %>">前端小站</a>
-        </div>
-        <a class="menu-item" href="<%- url_for('/') %>"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg><span>首页</span></a>
-        <a class="menu-item" href="<%- url_for('/archives/') %>"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg><span>文章</span></a>
-        <a class="menu-item" href="<%- url_for('/ins/') %>"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg><span>INS</span></a>
-        <a class="menu-item" href="<%- url_for('/category/') %>"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg><span>分类</span></a>
-        <a class="menu-item" href="<%- url_for('/tag/') %>"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg><span>标签</span></a>
-        <a class="menu-item" href="<%- url_for('/about/') %>"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M16 10h2"/><path d="M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/></svg><span>关于</span></a>
-        <a class="menu-item" href="<%- url_for('/friends/') %>"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></svg><span>友链</span></a>
-        <button class="menu-close" type="button" onclick="mobileBtn()">关闭</button>
+
+      <div class="site-mobile-links" aria-label="移动端主导航">
+        <% navItems.forEach(function (item) { %>
+          <a class="site-mobile-link" href="<%- item.href %>"><%- item.icon %><span><%- item.label %></span></a>
+        <% }); %>
       </div>
-    </div>
-  </nav>
+    </section>
+  </div>
 </header>
 <script>
-  var mobileBtn = function () {
-    var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-    var mobileMenu = document.getElementById("mobile-menu");
-    if (!toggleMenu || !mobileMenu) return;
-    toggleMenu.classList.toggle("active");
-    mobileMenu.classList.toggle("active");
-  };
+  (function () {
+    var root = document.documentElement;
+    var body = document.body;
+    var menu = document.getElementById('site-mobile-menu');
+    var toggle = document.getElementById('site-menu-toggle');
+
+    if (!menu || !toggle) return;
+
+    var setMenuOpen = function (open) {
+      menu.classList.toggle('is-open', open);
+      toggle.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? '关闭菜单' : '打开菜单');
+      menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+      root.classList.toggle('nav-menu-open', open);
+      if (body) body.classList.toggle('nav-menu-open', open);
+    };
+
+    toggle.addEventListener('click', function () {
+      setMenuOpen(!menu.classList.contains('is-open'));
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-menu-close]'), function (control) {
+      control.addEventListener('click', function () {
+        setMenuOpen(false);
+      });
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') setMenuOpen(false);
+    });
+  })();
 </script>

@@ -1,12 +1,38 @@
 <div class="home-template">
   <section class="home-hero">
-    <p class="home-eyebrow">前端工程师的小站</p>
-    <h1>把开发中的问题、方法和判断沉淀下来</h1>
-    <p class="home-subtitle">这里整理前端工程、AI 编程、JavaScript / CSS 基础、效率工具和真实项目里的问题复盘。首页先给你一张地图，再带你进入具体文章。</p>
-    <div class="home-actions">
-      <a class="home-action is-primary" href="<%- url_for('/archives/') %>">浏览全部文章</a>
-      <a class="home-action" href="<%- url_for('/category/') %>">按分类查看</a>
+    <div class="home-hero-copy">
+      <p class="home-eyebrow">前端工程师的小站</p>
+      <h1>把开发中的问题、方法和判断沉淀下来</h1>
+      <p class="home-subtitle">这里整理前端工程、AI 编程、JavaScript / CSS 基础、效率工具和真实项目里的问题复盘。首页先给你一张地图，再带你进入具体文章。</p>
+      <div class="home-actions">
+        <a class="home-action is-primary" href="<%- url_for('/archives/') %>">浏览全部文章</a>
+        <a class="home-action" href="<%- url_for('/category/') %>">按分类查看</a>
+      </div>
     </div>
+
+    <div class="home-visual" aria-hidden="true">
+      <div class="visual-orbit">
+        <span>AI</span>
+        <span>FE</span>
+        <span>CSS</span>
+      </div>
+      <div class="visual-terminal">
+        <div class="visual-bar">
+          <i></i>
+          <i></i>
+          <i></i>
+        </div>
+        <p>notes / build / debug</p>
+        <strong>72 posts indexed</strong>
+        <small>method -> practice -> review</small>
+      </div>
+      <div class="visual-flow">
+        <span>Prompt</span>
+        <span>Code</span>
+        <span>Ship</span>
+      </div>
+    </div>
+
     <div class="home-stats" aria-label="站点概况">
       <div>
         <strong><%= site.posts.length %></strong>
