@@ -48,6 +48,7 @@ $text-xl = 20px
 $text-2xl = 24px
 $text-section = clamp(30px, 3vw, 36px)
 $text-hero = clamp(46px, 5vw, 64px)
+$radius-sm = 4px
 
 .site-header
   position: sticky
@@ -64,9 +65,10 @@ $text-hero = clamp(46px, 5vw, 64px)
 
 .site-nav-shell
   max-width: 1360px
+  margin: 0 auto
   height: 68px
   display: grid
-  grid-template-columns: auto minmax(0, 1fr) auto
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr)
   align-items: center
   gap: 24px
   padding: 0 28px
@@ -76,6 +78,7 @@ $text-hero = clamp(46px, 5vw, 64px)
   align-items: center
   gap: 10px
   min-width: 0
+  justify-self: start
   color: #f7f9fc
   text-decoration: none
 
@@ -157,6 +160,7 @@ $text-hero = clamp(46px, 5vw, 64px)
   display: inline-flex
   align-items: center
   justify-content: flex-end
+  justify-self: end
   gap: 10px
 
 .theme-toggle,
@@ -390,6 +394,7 @@ body.nav-menu-open
   height: 52px
   padding: 0 22px
   border: 1px solid rgba(255, 255, 255, 0.55)
+  border-radius: $radius-sm
   box-shadow: 0 16px 44px rgba(0, 0, 0, 0.18)
   color: #f7f9fc
   font-size: $text-base
@@ -418,6 +423,7 @@ body.nav-menu-open
   width: min(100%, 390px)
   min-height: 390px
   border: 1px solid rgba(255, 255, 255, 0.12)
+  border-radius: $radius-sm
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025))
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 34px 90px rgba(0, 0, 0, 0.32)
   overflow: hidden
@@ -427,6 +433,7 @@ body.nav-menu-open
     position: absolute
     inset: 18px
     border: 1px solid rgba(49, 236, 134, 0.18)
+    border-radius: $radius-sm
     background-image: linear-gradient(rgba(49, 236, 134, 0.10) 1px, transparent 1px), linear-gradient(90deg, rgba(49, 236, 134, 0.10) 1px, transparent 1px)
     background-size: 28px 28px
     opacity: 0.72
@@ -445,6 +452,7 @@ body.nav-menu-open
   position: absolute
   inset: 42px
   border: 1px solid rgba(255, 255, 255, 0.12)
+  border-radius: $radius-sm
 
   span
     position: absolute
@@ -455,6 +463,7 @@ body.nav-menu-open
     height: 34px
     padding: 0 10px
     border: 1px solid rgba(49, 236, 134, 0.38)
+    border-radius: $radius-sm
     background: rgba(7, 9, 13, 0.78)
     color: #31ec86
     font-size: $text-xs
@@ -480,6 +489,7 @@ body.nav-menu-open
   min-height: 142px
   padding: 18px
   border: 1px solid rgba(255, 255, 255, 0.16)
+  border-radius: $radius-sm
   background: rgba(5, 8, 12, 0.84)
   backdrop-filter: blur(12px)
 
@@ -525,6 +535,7 @@ body.nav-menu-open
     min-width: 0
     padding: 10px 8px
     border: 1px solid rgba(255, 255, 255, 0.12)
+    border-radius: $radius-sm
     background: rgba(255, 255, 255, 0.04)
     color: #a9b3c3
     font-size: $text-xs
@@ -544,6 +555,7 @@ body.nav-menu-open
     overflow: hidden
     padding: 18px 20px
     border: 1px solid rgba(255, 255, 255, 0.12)
+    border-radius: $radius-sm
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025))
 
     &:before
@@ -626,6 +638,7 @@ body.nav-menu-open
   flex-direction: column
   padding: 24px
   border: 1px solid rgba(255, 255, 255, 0.12)
+  border-radius: $radius-sm
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025))
   transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease
 
@@ -677,6 +690,7 @@ body.nav-menu-open
   width: 34px
   height: 34px
   border: 1px solid rgba(255, 255, 255, 0.22)
+  border-radius: $radius-sm
   color: #31ec86
   font-size: $text-xs
   font-weight: 800
@@ -742,6 +756,7 @@ body.nav-menu-open
     overflow: hidden
     padding: 6px 9px
     border: 1px solid rgba(255, 255, 255, 0.12)
+    border-radius: $radius-sm
     color: #9aa5b6
     font-size: $text-xs
     font-style: normal
@@ -762,6 +777,7 @@ body.nav-menu-open
   min-height: 116px
   padding: 22px
   border: 1px solid rgba(255, 255, 255, 0.12)
+  border-radius: $radius-sm
   background: rgba(255, 255, 255, 0.03)
   color: #f7f9fc
   transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.2s ease
@@ -807,6 +823,7 @@ body.nav-menu-open
   margin: 56px auto
   padding: 36px
   border: 1px solid rgba(255, 255, 255, 0.12)
+  border-radius: $radius-sm
   background: rgba(255, 255, 255, 0.03)
 
 .archive h3,
@@ -866,6 +883,7 @@ body.nav-menu-open
   figure.highlight,
   blockquote
     border: 1px solid rgba(255, 255, 255, 0.12)
+    border-radius: $radius-sm
     background: rgba(255, 255, 255, 0.04)
 
 .tag-cloud-tags
@@ -877,6 +895,7 @@ body.nav-menu-open
     margin: 0
     padding: 9px 14px
     border: 1px solid rgba(255, 255, 255, 0.14)
+    border-radius: $radius-sm
     color: #f7f9fc
 
     &:hover
@@ -1300,6 +1319,7 @@ body.nav-menu-open
     min-height: 38px
     padding: 0 14px
     border: 1px solid rgba(255, 255, 255, 0.12)
+    border-radius: $radius-sm
     color: #8d98aa
     font-size: $text-sm
     font-weight: 700
@@ -1315,6 +1335,7 @@ body.nav-menu-open
 .tag-cloud-panel
   margin-top: 34px
   border: 1px solid rgba(255, 255, 255, 0.12)
+  border-radius: $radius-sm
   background: rgba(255, 255, 255, 0.03)
 
 .timeline-panel
@@ -1368,6 +1389,7 @@ body.nav-menu-open
   flex-direction: column
   padding: 24px
   border: 1px solid rgba(255, 255, 255, 0.12)
+  border-radius: $radius-sm
   background: rgba(255, 255, 255, 0.03)
 
   > a
@@ -1395,6 +1417,7 @@ body.nav-menu-open
   min-height: 32px
   padding: 0 10px
   border: 1px solid rgba(49, 236, 134, 0.38)
+  border-radius: $radius-sm
   color: #31ec86
   font-size: $text-sm
   font-weight: 800
@@ -1430,6 +1453,7 @@ body.nav-menu-open
     min-height: 40px
     padding: 0 14px
     border: 1px solid rgba(255, 255, 255, 0.12)
+    border-radius: $radius-sm
     color: #f7f9fc
     font-size: $text-base
     font-weight: 700
@@ -1466,6 +1490,7 @@ body.nav-menu-open
     aspect-ratio: 4 / 3
     object-fit: cover
     border: 1px solid rgba(255, 255, 255, 0.14)
+    border-radius: $radius-sm
     background: rgba(255, 255, 255, 0.04)
 
 .friends-panel blockquote
@@ -1473,6 +1498,7 @@ body.nav-menu-open
   padding: 20px 22px
   border: 1px solid rgba(49, 236, 134, 0.24)
   border-left: 3px solid #31ec86
+  border-radius: $radius-sm
   background: rgba(49, 236, 134, 0.06)
 
 .article-shell
@@ -1521,6 +1547,7 @@ body.nav-menu-open
     min-height: 34px
     padding: 0 11px
     border: 1px solid rgba(255, 255, 255, 0.12)
+    border-radius: $radius-sm
     color: #a9b3c3
     font-size: $text-sm
     font-weight: 700
@@ -1589,6 +1616,7 @@ body.nav-menu-open
   margin-top: 34px
   padding: 18px 20px
   border: 1px solid rgba(255, 255, 255, 0.10)
+  border-radius: $radius-sm
   color: #9aa5b6
 
 .article-nav
@@ -1597,15 +1625,22 @@ body.nav-menu-open
   gap: 14px
   margin-top: 32px
 
+  &:before,
+  &:after
+    display: none
+    content: none
+
   a.prev,
   a.next
     float: none
     min-height: 98px
     display: flex
-    flex-direction: column
+    align-items: center
+    gap: 10px
     justify-content: center
     padding: 18px 20px
     border: 1px solid rgba(255, 255, 255, 0.12)
+    border-radius: $radius-sm
     color: #f7f9fc
     font-size: $text-base
     font-weight: 800
@@ -1621,16 +1656,19 @@ body.nav-menu-open
       transform: translateY(-2px)
 
     small
-      margin-bottom: 8px
+      flex: 0 0 auto
       color: #8d98aa
       font-size: $text-xs
       font-weight: 800
 
     span
+      min-width: 0
       max-width: none
       width: auto
       line-height: 1.5
-      white-space: normal
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
 
   a.next
     text-align: right
@@ -1642,6 +1680,7 @@ body.nav-menu-open
   width: 220px
   padding: 16px
   border: 1px solid rgba(255, 255, 255, 0.12)
+  border-radius: $radius-sm
   background: rgba(7, 9, 13, 0.86)
   backdrop-filter: blur(16px)
   font-size: $text-sm
