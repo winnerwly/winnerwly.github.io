@@ -1,58 +1,11 @@
-<aside class="post-toc">
-  <div class="toc-title">目录</div>
-  <div class="tocbot-list"></div>
-  <div class="tocbot-list-menu">
-    <a class="tocbot-toc-expand" onclick="expand_toc()">展开</a>
-    <a onclick="go_top()">顶部</a>
-    <a onclick="go_bottom()">底部</a>
-  </div>
+<aside class="article-aside" aria-label="文章目录">
+  <details id="article-toc" open>
+    <summary>目录</summary>
+    <div class="tocbot-list"><%- contents %></div>
+    <div class="toc-tools">
+      <button id="toc-expand" type="button" aria-expanded="false" hidden>展开全部</button>
+      <a href="#article-top">顶部</a>
+      <a href="#article-end">底部</a>
+    </div>
+  </details>
 </aside>
-
-<script>
-  document.ready(function () {
-    tocbot.init({
-      tocSelector: '.tocbot-list',
-      contentSelector: '.post-content',
-      headingSelector: 'h1, h2, h3, h4, h5',
-      collapseDepth: 1,
-      orderedList: false,
-      scrollSmooth: true
-    });
-  });
-
-  function expand_toc() {
-    var b = document.querySelector(".tocbot-toc-expand");
-    tocbot.init({
-      tocSelector: '.tocbot-list',
-      contentSelector: '.post-content',
-      headingSelector: 'h1, h2, h3, h4, h5',
-      collapseDepth: 6,
-      orderedList: false,
-      scrollSmooth: true
-    });
-    b.setAttribute("onclick", "collapse_toc()");
-    b.innerHTML = "收起";
-  }
-
-  function collapse_toc() {
-    var b = document.querySelector(".tocbot-toc-expand");
-    tocbot.init({
-      tocSelector: '.tocbot-list',
-      contentSelector: '.post-content',
-      headingSelector: 'h1, h2, h3, h4, h5',
-      collapseDepth: 1,
-      orderedList: false,
-      scrollSmooth: true
-    });
-    b.setAttribute("onclick", "expand_toc()");
-    b.innerHTML = "展开";
-  }
-
-  function go_top() {
-    window.scrollTo(0, 0);
-  }
-
-  function go_bottom() {
-    window.scrollTo(0, document.body.scrollHeight);
-  }
-</script>

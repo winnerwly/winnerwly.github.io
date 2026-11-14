@@ -1,19 +1,15 @@
-<% if (page.total > 1){ %>
-    <nav class="pagination">
-        <% if (page.prev_link){ %>
-            <a class="extend prev" rel="prev" href="<%- url_for(page.prev_link) %>">‹</a>
-        <% } else { %>
-            <span class="extend prev disabled">‹</span>
-        <% } %>
-        <%- paginator({
-            prev_next: false,
-            end_size: 1,
-            mid_size: 2,
-        }) %>
-        <% if (page.next_link){ %>
-            <a class="extend next" rel="next" href="<%- url_for(page.next_link) %>">›</a>
-        <% } else { %>
-            <span class="extend next disabled">›</span>
-        <% } %>
-    </nav>
+<% if (page.total > 1) { %>
+  <nav class="pagination" aria-label="分页">
+    <% if (page.prev_link) { %>
+      <a rel="prev" href="<%= url_for(page.prev_link) %>" aria-label="上一页">‹</a>
+    <% } else { %>
+      <span aria-hidden="true" class="disabled">‹</span>
+    <% } %>
+    <%- paginator({ prev_next: false, end_size: 1, mid_size: 1, current_class: 'current' }).replace('class="page-number current"', 'class="page-number current" aria-current="page"') %>
+    <% if (page.next_link) { %>
+      <a rel="next" href="<%= url_for(page.next_link) %>" aria-label="下一页">›</a>
+    <% } else { %>
+      <span aria-hidden="true" class="disabled">›</span>
+    <% } %>
+  </nav>
 <% } %>

@@ -1,46 +1,35 @@
-<% if(is_category()){ %>
-  <%- partial('_page/category', {pagination: config.category, index: true}) %>
-<% }else{ %>
-  <div class="container content-shell taxonomy-shell">
-    <section class="content-hero">
-      <p class="content-kicker">Categories</p>
-      <h1>分类归档</h1>
-      <p>按主题组织文章，适合从一个方向连续阅读和复盘。</p>
-      <div class="content-stats">
-        <span><strong><%= site.categories.length %></strong> 个分类</span>
-        <span><strong><%= site.posts.length %></strong> 篇文章</span>
-      </div>
-    </section>
-
-    <section class="taxonomy-grid">
-      <%
-        var sorted_categories = site.categories.toArray().sort(function(a, b) {
-          var latest_a = a.posts.sort('date', -1).first();
-          var latest_b = b.posts.sort('date', -1).first();
-          var time_a = latest_a && latest_a.date ? latest_a.date.valueOf() : 0;
-          var time_b = latest_b && latest_b.date ? latest_b.date.valueOf() : 0;
-
-          if (time_a === time_b) {
-            return String(a.name).localeCompare(String(b.name));
-          }
-
-          return time_b - time_a;
-        });
-      %>
-      <% sorted_categories.forEach(function(category_item){ %>
-        <article class="taxonomy-card">
-          <a href="<%- url_for(category_item.path) %>">
-            <span class="taxonomy-count"><%- category_item.posts.length %> 篇</span>
-            <h2><%- category_item.name %></h2>
-            <p>查看该分类下的文章与实践记录。</p>
-          </a>
-          <div class="taxonomy-preview">
-            <% category_item.posts.sort('date', -1).limit(3).forEach(function(post_item){ %>
-              <a href="<%- url_for(post_item.path) %>"><%- post_item.title %></a>
-            <% }) %>
-          </div>
-        </article>
-      <% }) %>
-    </section>
+<% if (is_category()) { %>
+  <%- partial('_page/taxonomy', {
+    indexPath: '/category/',
+    indexLabel: '全部分类',
+    term: page.category,
+    posts: page.posts.sort('date', -1)
+  }) %>
+<% } else { %>
+  <header class="page-heading">
+    <h1>分类归档</h1>
+    <p><%= site.categories.length %> 个分类 · <%= site.posts.length %> 篇文章</p>
+  </header>
+  <%
+    const categories = site.categories.toArray().map(function (category) {
+      return { category: category, latest: category.posts.sort('date', -1).toArray().slice(0, 3) };
+    });
+    categories.sort(function (a, b) {
+      const latestA = a.latest[0] ? a.latest[0].date.valueOf() : 0;
+      const latestB = b.latest[0] ? b.latest[0].date.valueOf() : 0;
+      return latestB - latestA || a.category.name.localeCompare(b.category.name);
+    });
+  %>
+  <div class="category-grid">
+    <% categories.forEach(function (item) { %>
+      <section class="category-entry">
+        <h2><a href="<%= url_for(item.category.path) %>"><%= item.category.name %><span><%= item.category.posts.length %> 篇 ↗</span></a></h2>
+        <ul>
+          <% item.latest.forEach(function (entry) { %>
+            <li><a href="<%= url_for(entry.path) %>"><%= entry.title %></a></li>
+          <% }); %>
+        </ul>
+      </section>
+    <% }); %>
   </div>
 <% } %>

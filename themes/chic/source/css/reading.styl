@@ -1,0 +1,316 @@
+.reading-page
+  max-width 730px
+
+.article-layout
+  display grid
+  grid-template-columns minmax(0, 730px)
+  column-gap clamp(20px, 3vw, 46px)
+  align-items start
+
+.article-header
+  padding-bottom 26px
+  margin-bottom 30px
+  border-bottom 1px solid var(--line)
+
+  h1
+    margin 14px 0 16px
+    font 650 clamp(1.8rem, 4vw, 2.45rem)/1.25 var(--display)
+
+.back-link
+  color var(--accent)
+  font-size 14px
+
+.article-meta, .article-tags
+  display flex
+  flex-wrap wrap
+  gap 7px 16px
+  color var(--muted)
+  font-size 13px
+
+  a
+    color var(--accent)
+
+.article-tags
+  gap 6px
+  margin-top 14px
+
+  a
+    padding 2px 8px
+    border 1px solid var(--line)
+
+.article-aside
+  margin-bottom 26px
+  border-top 1px solid var(--line)
+
+  details
+    padding 10px 15px
+
+  summary
+    cursor pointer
+    font-weight 500
+
+  ol, ul
+    margin 4px 0
+    padding-left 13px
+    list-style none
+
+  .tocbot-list
+    font-size 14px
+    line-height 1.45
+
+  .toc-link
+    display block
+    padding-block 4px
+    color var(--muted)
+
+    &::before
+      display none
+
+    &:hover, &.is-active-link
+      color var(--text)
+
+.toc-tools
+  display flex
+  flex-wrap wrap
+  gap 8px 14px
+  padding-top 10px
+  border-top 1px solid var(--line)
+  color var(--text)
+  font-size 13px
+
+  a:hover, button:hover
+    color var(--text)
+    text-decoration underline
+
+  button
+    padding 0
+    background transparent
+    border 0
+    text-align left
+
+@media (min-width: 1180px)
+  .article-layout
+    grid-template-columns minmax(0, 1fr) 0
+    column-gap 18px
+
+  .article-layout > :not(.article-aside)
+    grid-column 1
+
+  .article-aside
+    position sticky
+    top 30px
+    grid-column 2
+    grid-row 1 / span 5
+    justify-self start
+    width clamp(160px, 16vw, 230px)
+    max-height calc(100vh - 60px)
+    overflow auto
+    border-top 0
+    border-left 1px solid var(--line)
+
+.post-content
+  min-width 0
+  font-size clamp(16px, 1.6vw, 18px)
+  line-height 1.85
+
+  > :first-child
+    margin-top 0
+
+  > :last-child
+    margin-bottom 0
+
+  p, ul, ol, pre, blockquote, figure, table
+    margin-block 1em
+
+  h1, h2, h3, h4, h5, h6
+    margin 1.7em 0 .55em
+    font-family var(--display)
+    line-height 1.32
+
+  h2
+    padding-bottom .2em
+    border-bottom 1px solid var(--line)
+
+  a
+    color var(--accent)
+    text-decoration underline
+    text-underline-offset .18em
+
+  a.headerlink
+    text-decoration none
+
+  blockquote
+    padding .12em 1em
+    margin-inline 0
+    border-left 3px solid var(--accent)
+    background var(--surface)
+    color var(--muted)
+
+  figure
+    margin-inline 0
+
+  img, video, iframe
+    max-width 100%
+
+  hr
+    margin-block 2em
+    border 0
+    border-top 1px solid var(--line)
+
+  code, pre
+    font-family var(--mono)
+    font-size .83em
+    line-height 1.65
+
+  code
+    padding .12em .25em
+    color var(--accent)
+    background var(--code)
+    border-radius 2px
+
+  > pre, figure.highlight
+    overflow-x auto
+    padding 12px 16px
+    border 1px solid var(--line)
+    background var(--code)
+
+  pre code
+    padding 0
+    color inherit
+    font-size inherit
+
+  table
+    display block
+    max-width 100%
+    overflow-x auto
+    border-collapse collapse
+
+  th, td
+    padding 7px 12px
+    border 1px solid var(--line)
+    overflow-wrap normal
+
+  th
+    background var(--surface)
+    text-align left
+
+  figure.highlight
+    table, pre
+      margin 0
+
+    table
+      display table
+      max-width none
+
+    td
+      padding 0
+      border 0
+
+    figcaption
+      color var(--muted)
+      font-size 13px
+
+    .gutter
+      padding-right 14px
+      color var(--muted)
+      user-select none
+
+    .keyword, .selector-tag, .meta
+      color var(--keyword)
+
+    .string, .regexp, .attr
+      color var(--literal)
+
+    .number, .literal, .built_in
+      color var(--number)
+
+    .comment, .quote
+      color var(--muted)
+
+.article-copyright, .article-nav
+  border-top 1px solid var(--line)
+  margin-top 36px
+  padding-top 18px
+
+.article-copyright a
+  color var(--accent)
+
+.article-nav
+  display grid
+  grid-template-columns repeat(2, minmax(0, 1fr))
+  gap 14px
+
+  a
+    display grid
+    gap 5px
+    padding 12px
+    border 1px solid var(--line)
+
+    &:hover
+      border-color var(--accent)
+
+  small
+    color var(--accent)
+
+  .next
+    grid-column 2
+
+@media (max-width: 560px)
+  .article-nav
+    grid-template-columns minmax(0, 1fr)
+
+    .next
+      grid-column 1
+
+.article-layout
+  .article-header
+    padding-bottom clamp(18px, 3vw, 24px)
+    margin-bottom clamp(20px, 3.5vw, 32px)
+
+  .post-title
+    font-size clamp(1.65rem, 3.4vw, 2.25rem)
+    line-height 1.32
+    text-wrap balance
+
+.article-content
+  font-size clamp(16px, 1.45vw, 17px)
+  line-height 1.85
+
+  blockquote
+    margin-block 1.15em
+    padding .4em 0 .4em clamp(12px, 2vw, 18px)
+    border-left-width 2px
+    border-left-color var(--muted)
+    background transparent
+    color var(--text)
+
+    > :first-child
+      margin-top 0
+
+    > :last-child
+      margin-bottom 0
+
+  h1, h2
+    font-size clamp(1.32rem, 2.7vw, 1.55rem)
+
+  h3
+    font-size clamp(1.12rem, 2.2vw, 1.25rem)
+
+  h4, h5, h6
+    font-size 1em
+
+  li + li
+    margin-top .3em
+
+  ul, ol
+    padding-inline-start 1.45em
+
+  > pre, figure.highlight
+    border-radius 4px
+
+@media (max-width: 560px)
+  .article-meta
+    gap 4px 12px
+
+  .article-content
+    line-height 1.75

@@ -1,0 +1,4 @@
+<li class="post-row">
+  <a href="<%= url_for(entry.path) %>"><%= entry.title %></a>
+  <time datetime="<%= date(entry.date, 'YYYY-MM-DD') %>"><%= date(entry.date, theme.date_format) %></time>
+</li>

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="<%= config.language %>">
-
+<html lang="<%= config.language || 'zh-CN' %>">
 <head>
-    <%- partial('_partial/head',{cache: true}) %>
+  <%- partial('_partial/head') %>
 </head>
-
-<body class="<%= is_home() ? 'home-page' : '' %>">
-    <div id="content" class="wrapper">
-        <%- partial('_partial/header',{cache: true}) %>
-        <div class="main">
-            <%- body %>
-        </div>
-        <%- partial('_partial/footer',{cache: true}) %>
+<body>
+  <a class="skip-link" href="#content">跳到正文</a>
+  <div class="site-frame">
+    <%- partial('_partial/header') %>
+    <div class="site-body">
+      <main id="content" class="site-main<%= is_home_first_page() ? ' profile-main' : '' %><%= is_post() ? ' article-main' : '' %>" tabindex="-1">
+        <%- body %>
+      </main>
+      <%- partial('_partial/footer') %>
     </div>
+  </div>
 </body>
-
 </html>
