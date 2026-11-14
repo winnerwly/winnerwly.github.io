@@ -1,0 +1,10 @@
+<header class="page-heading">
+  <a href="<%= url_for(indexPath) %>"><%= indexLabel %></a>
+  <h1><%= term %></h1>
+</header>
+<ul class="post-list">
+  <% posts.forEach(function (entry) { %>
+    <%- partial('_partial/post-row', { entry: entry }) %>
+  <% }); %>
+</ul>
+<%- partial('_partial/paginator') %>

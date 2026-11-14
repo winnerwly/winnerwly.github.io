@@ -1,24 +1,18 @@
-<% if(is_tag()){ %>
-  <%- partial('_page/tag', {pagination: config.tag, index: true}) %>
-<% }else{ %>
-  <div class="container content-shell tag-shell">
-    <section class="content-hero">
-      <p class="content-kicker">Tags</p>
-      <h1>标签索引</h1>
-      <p>用关键词快速进入具体主题，适合查找细分知识点。</p>
-      <div class="content-stats">
-        <span><strong><%= site.tags.length %></strong> 个标签</span>
-        <span><strong><%= site.posts.length %></strong> 篇文章</span>
-      </div>
-    </section>
-
-    <section class="tag-cloud-panel">
-      <% site.tags.sort('name').forEach(function(item){ %>
-        <a href="<%- url_for(item.path) %>">
-          <span><%- item.name %></span>
-          <small><%- item.length %></small>
-        </a>
-      <% }) %>
-    </section>
-  </div>
+<% if (is_tag()) { %>
+  <%- partial('_page/taxonomy', {
+    indexPath: '/tag/',
+    indexLabel: '全部标签',
+    term: page.tag,
+    posts: page.posts
+  }) %>
+<% } else { %>
+  <header class="page-heading">
+    <h1>标签索引</h1>
+    <p><%= site.tags.length %> 个标签 · <%= site.posts.length %> 篇文章</p>
+  </header>
+  <ul class="tag-index">
+    <% site.tags.sort('name').forEach(function (tag) { %>
+      <li><a href="<%= url_for(tag.path) %>"><%= tag.name %><span><%= tag.posts.length %></span></a></li>
+    <% }); %>
+  </ul>
 <% } %>

@@ -1,86 +1,98 @@
-<div class="container article-shell">
-  <% if(theme.post_toc_enable && toc(page.content).length !== 0){ %>
-    <%- partial('_partial/toc') %>
-  <% } %>
+<%
+  const leadingHeading = page.content.match(/^\s*<h1\b([^>]*)>([\s\S]*?)<\/h1>/i);
+  const headingId = leadingHeading && leadingHeading[1].match(/\sid="([^"]+)"/i);
+  const headingText = leadingHeading && strip_html(leadingHeading[2]).trim();
+  const repeatsTitle = headingId && (headingText === page.title || headingText === escape_html(page.title));
+  const articleBody = repeatsTitle ? page.content.slice(leadingHeading[0].length) : page.content;
+%>
+<article class="article-layout" id="article-top">
+  <header class="article-header">
+    <a class="back-link" href="<%= url_for('/archives/') %>">← 文章归档</a>
+    <h1 class="post-title"<% if (repeatsTitle) { %> id="<%- headingId[1] %>"<% } %>><%= page.title %></h1>
 
-  <article class="post-wrap article-panel">
-    <header class="article-header">
-      <p class="content-kicker">Article</p>
-      <h1 class="post-title"><%= page.title %></h1>
-
-      <% if(theme.post_meta_enable){ %>
-        <div class="article-meta">
-          <% if(theme.post_author_enable && config.author){ %>
-            <span>作者：<a itemprop="author" rel="author" href="/"><%- config.author %></a></span>
-          <% } %>
-          <% if(page.date && theme.post_date_enable){ %>
-            <span>发布：<time><%- date(page.date, theme.date_format) %> <%- time(page.date, theme.time_format) %></time></span>
-          <% } %>
-          <% if(page.categories && page.categories.length !== 0 && theme.post_category_enable){ %>
-            <span>分类：
-              <% page.categories.forEach(function(item){ %>
-                <a href="<%- url_for(item.path) %>"><%- item.name %></a>
-              <% }) %>
-            </span>
-          <% } %>
-        </div>
-      <% } %>
-
-      <% if(page.tags && page.tags.length !== 0){ %>
-        <div class="article-tags">
-          <% page.tags.forEach(function(item){ %>
-            <a href="<%- url_for(item.path) %>"># <%- item.name %></a>
-          <% }) %>
-        </div>
-      <% } %>
-    </header>
-
-    <div class="post-content article-content">
-      <%- page.content %>
-    </div>
-
-    <% if(theme.post_copyright_enable && (theme.post_copyright_author_enable || theme.post_copyright_permalink_enable || theme.post_copyright_license_enable || theme.post_copyright_slogan_enable)){ %>
-      <section class="post-copyright article-copyright">
-        <% if(theme.post_copyright_author_enable){ %>
-          <p class="copyright-item">
-            <span>作者：</span>
-            <span><%- config.author %></span>
-          </p>
+    <% if(theme.post_meta_enable){ %>
+      <div class="article-meta">
+        <% if(theme.post_author_enable && config.author){ %>
+          <span>作者：<a itemprop="author" rel="author" href="<%= url_for('/') %>"><%- config.author %></a></span>
         <% } %>
-        <% if(theme.post_copyright_permalink_enable){ %>
-          <p class="copyright-item">
-            <span>链接：</span>
-            <span><a href="<%- page.permalink %>"><%- page.permalink %></a></span>
-          </p>
+        <% if(page.date && theme.post_date_enable){ %>
+          <span>发布：<time datetime="<%= page.date.toISOString() %>"><%- date(page.date, theme.date_format) %> <%- time(page.date, theme.time_format) %></time></span>
         <% } %>
-        <% if(theme.post_copyright_license_enable){ %>
-          <p class="copyright-item">
-            <span>许可：</span>
-            <span><%- theme.post_copyright_license_text %></span>
-          </p>
+        <% if(page.categories && page.categories.length !== 0 && theme.post_category_enable){ %>
+          <span>分类：
+            <% page.categories.forEach(function(item){ %>
+              <a href="<%- url_for(item.path) %>"><%= item.name %></a>
+            <% }) %>
+          </span>
         <% } %>
-        <% if(theme.post_copyright_slogan_enable){ %>
-          <p class="copyright-item">
-            <span>说明：</span>
-            <span><%- theme.post_copyright_slogan_text %></span>
-          </p>
-        <% } %>
-      </section>
+      </div>
     <% } %>
 
-    <nav class="post-nav article-nav">
-      <% if(post.prev){ %>
-        <a class="prev" rel="prev" href="<%- url_for(post.prev.path)%>">
-          <small>上一篇</small>
-          <span><%- post.prev.title%></span>
-        </a>
+    <% if(page.tags && page.tags.length !== 0){ %>
+      <div class="article-tags">
+        <% page.tags.forEach(function(item){ %>
+          <a href="<%- url_for(item.path) %>"># <%= item.name %></a>
+        <% }) %>
+      </div>
+    <% } %>
+  </header>
+
+  <% if (theme.post_toc_enable) { %>
+    <% const contents = toc(articleBody, { list_number: false }); %>
+    <% if (contents) { %>
+      <%- partial('_partial/toc', { contents: contents }) %>
+    <% } %>
+  <% } %>
+
+  <div class="post-content article-content">
+    <%- articleBody %>
+  </div>
+
+  <% if(theme.post_copyright_enable && (theme.post_copyright_author_enable || theme.post_copyright_permalink_enable || theme.post_copyright_license_enable || theme.post_copyright_slogan_enable)){ %>
+    <section class="post-copyright article-copyright">
+      <% if(theme.post_copyright_author_enable){ %>
+        <p class="copyright-item">
+          <span>作者：</span>
+          <span><%- config.author %></span>
+        </p>
       <% } %>
-      <% if(post.next){ %>
-        <a class="next" rel="next" href="<%- url_for(post.next.path)%>">
-          <small>下一篇</small>
-          <span><%- post.next.title%></span>
-        </a>
+      <% if(theme.post_copyright_permalink_enable){ %>
+        <p class="copyright-item">
+          <span>链接：</span>
+          <span><a href="<%- page.permalink %>"><%- page.permalink %></a></span>
+        </p>
       <% } %>
-    </nav>
-  </article>
-</div>
+      <% if(theme.post_copyright_license_enable){ %>
+        <p class="copyright-item">
+          <span>许可：</span>
+          <span><%- theme.post_copyright_license_text %></span>
+        </p>
+      <% } %>
+      <% if(theme.post_copyright_slogan_enable){ %>
+        <p class="copyright-item">
+          <span>说明：</span>
+          <span><%- theme.post_copyright_slogan_text %></span>
+        </p>
+      <% } %>
+    </section>
+  <% } %>
+
+  <% if (post.prev || post.next) { %>
+  <nav class="article-nav" id="article-end" aria-label="相邻文章">
+    <% if(post.prev){ %>
+      <a class="prev" rel="prev" href="<%- url_for(post.prev.path)%>">
+        <small>上一篇</small>
+        <span><%= post.prev.title %></span>
+      </a>
+    <% } %>
+    <% if(post.next){ %>
+      <a class="next" rel="next" href="<%- url_for(post.next.path)%>">
+        <small>下一篇</small>
+        <span><%= post.next.title %></span>
+      </a>
+    <% } %>
+  </nav>
+  <% } else { %>
+    <div id="article-end"></div>
+  <% } %>
+</article>

@@ -1,13 +1,6 @@
-<div class="container content-shell page-shell ins-shell">
-  <section class="content-hero">
-    <p class="content-kicker">Gallery</p>
-    <h1>照片墙</h1>
-    <p>存放一些图片记录，让博客不只保留文字，也留下阶段性的视觉片段。</p>
-  </section>
-
-  <article class="content-panel">
-    <div class="ins-content">
-      <%- page.content %>
-    </div>
-  </article>
+<header class="page-heading">
+  <h1><%= page.title %></h1>
+</header>
+<div class="photo-grid">
+  <%- page.content %>
 </div>

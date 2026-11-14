@@ -1,3 +1,25 @@
-<% if(is_home()) {%>
-    <%- partial('_page/profile') %>
-<%}%>
+<% if (is_home_first_page()) { %>
+  <section class="profile" aria-labelledby="profile-name">
+    <a class="profile-avatar" href="<%= url_for('/archives/') %>" aria-label="浏览文章">
+      <img src="<%= url_for(theme.avatar) %>" width="128" height="128" alt="">
+    </a>
+    <h1 id="profile-name"><%= theme.nickname %></h1>
+    <div class="profile-description"><%- markdown(theme.description) %></div>
+    <nav class="profile-links" aria-label="作者链接">
+      <a href="<%= url_for('/archives/') %>">文章</a>
+      <% if (theme.links && theme.links.Github) { %>
+        <a href="<%= theme.links.Github %>">GitHub</a>
+      <% } %>
+    </nav>
+  </section>
+<% } else { %>
+  <header class="page-heading">
+    <h1>文章 · 第 <%= page.current %> 页</h1>
+  </header>
+  <ul class="post-list">
+    <% page.posts.forEach(function (entry) { %>
+      <%- partial('_partial/post-row', { entry: entry }) %>
+    <% }); %>
+  </ul>
+  <%- partial('_partial/paginator') %>
+<% } %>

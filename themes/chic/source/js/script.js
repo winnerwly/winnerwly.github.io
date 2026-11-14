@@ -1,66 +1,88 @@
-// Minimal DOM-ready helper for the theme.
 (function () {
-  var ready = function (callback) {
-    if (document.readyState !== 'loading') {
-      callback();
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('theme-toggle');
+  const menuToggle = document.getElementById('menu-toggle');
+  const navigation = document.getElementById('site-navigation');
+  const compactNavigation = window.matchMedia('(max-width: 780px)');
+
+  function updateThemeLabel() {
+    themeToggle.textContent = root.dataset.theme === 'light' ? '深色模式' : '浅色模式';
+  }
+
+  updateThemeLabel();
+  themeToggle.hidden = false;
+  themeToggle.addEventListener('click', function () {
+    const theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+    root.dataset.theme = theme;
+    updateThemeLabel();
+    try {
+      localStorage.setItem('theme-preference', theme);
+    } catch (error) {
+      // The current page still uses the selected palette.
+    }
+  });
+
+  function closeMenu() {
+    navigation.hidden = compactNavigation.matches;
+    menuToggle.hidden = !compactNavigation.matches;
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  closeMenu();
+  compactNavigation.addEventListener('change', closeMenu);
+  menuToggle.addEventListener('click', function () {
+    if (!navigation.hidden) {
+      closeMenu();
       return;
     }
-    document.addEventListener('DOMContentLoaded', callback);
-  };
+    navigation.hidden = false;
+    menuToggle.setAttribute('aria-expanded', 'true');
+    navigation.querySelector('a').focus();
+  });
 
-  ready(function () {
-    var storageKey = 'theme-preference';
-    var root = document.documentElement;
-    var body = document.body;
-    var toggleButtons = [
-      document.getElementById('theme-toggle'),
-      document.getElementById('mobile-toggle-theme')
-    ];
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
+      closeMenu();
+      menuToggle.focus();
+    }
+  });
 
-    var getTheme = function () {
-      try {
-        return localStorage.getItem(storageKey) || 'dark';
-      } catch (e) {
-        return 'dark';
-      }
-    };
+  const contents = document.getElementById('article-toc');
+  if (!contents) return;
 
-    var applyTheme = function (theme) {
-      var activeTheme = theme === 'light' ? 'light' : 'dark';
-      root.classList.remove('light-theme', 'dark-theme');
-      root.classList.add(activeTheme + '-theme');
-      root.setAttribute('data-theme', activeTheme);
+  const wideArticle = window.matchMedia('(min-width: 1180px)');
+  function setContentsOpen() {
+    contents.open = wideArticle.matches;
+  }
+  setContentsOpen();
+  wideArticle.addEventListener('change', setContentsOpen);
 
-      if (body) {
-        body.classList.remove('light-theme', 'dark-theme');
-        body.classList.add(activeTheme + '-theme');
-      }
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!window.tocbot) return;
 
-      toggleButtons.forEach(function (button) {
-        if (!button) return;
-        var label = activeTheme === 'dark' ? '切换到浅色主题' : '切换到深色主题';
-        button.setAttribute('aria-label', label);
-        button.setAttribute('title', label);
-        button.setAttribute('data-theme-mode', activeTheme);
+    const expand = document.getElementById('toc-expand');
+    const list = contents.querySelector('.tocbot-list');
+    const hasNestedHeadings = Boolean(list.querySelector('ol ol, ul ul'));
+
+    function renderContents(expanded) {
+      window.tocbot.init({
+        tocSelector: '.tocbot-list',
+        contentSelector: '.article-content',
+        headingSelector: 'h1, h2, h3, h4, h5, h6',
+        collapseDepth: expanded ? 6 : 1,
+        orderedList: false,
+        scrollSmooth: !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+        scrollSmoothOffset: -24,
+        headingsOffset: 28
       });
-    };
+      expand.setAttribute('aria-expanded', String(expanded));
+      expand.textContent = expanded ? '收起层级' : '展开全部';
+    }
 
-    var setTheme = function (theme) {
-      try {
-        localStorage.setItem(storageKey, theme);
-      } catch (e) {}
-      applyTheme(theme);
-    };
-
-    var currentTheme = getTheme();
-    applyTheme(currentTheme);
-
-    toggleButtons.forEach(function (button) {
-      if (!button) return;
-      button.addEventListener('click', function () {
-        currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-        setTheme(currentTheme);
-      });
+    renderContents(false);
+    expand.hidden = !hasNestedHeadings;
+    expand.addEventListener('click', function () {
+      renderContents(expand.getAttribute('aria-expanded') === 'false');
     });
   });
 })();

@@ -1,0 +1,111 @@
+.post-list, .category-entry ul, .tag-index
+  list-style none
+  padding 0
+  margin 0
+
+.post-row
+  display grid
+  grid-template-columns minmax(0, 1fr) auto
+  align-items baseline
+  gap 12px
+  padding-block 6px
+
+  time
+    color var(--muted)
+    font-size 13px
+    font-variant-numeric tabular-nums
+    white-space nowrap
+
+  a:hover
+    text-decoration underline
+    text-underline-offset 3px
+
+.archive-year
+  margin-bottom 24px
+
+  h2
+    margin-bottom 7px
+    font-size 1.25rem
+
+.category-entry
+  padding-block 15px
+  border-bottom 1px solid var(--line)
+
+  h2
+    font 600 1.2rem/1.45 var(--sans)
+
+    a
+      display flex
+      justify-content space-between
+      align-items baseline
+      gap 10px
+
+    span
+      flex none
+      color var(--muted)
+      font 400 13px/1.5 var(--sans)
+
+  ul
+    margin-top 8px
+
+  li a
+    display inline-block
+    padding-block 3px
+    font-size 14px
+
+.tag-index
+  display flex
+  flex-wrap wrap
+  gap 10px 18px
+
+  a
+    display flex
+    align-items baseline
+    gap 5px
+    padding-block 3px
+    text-decoration underline
+    text-underline-offset 3px
+
+  span
+    color var(--muted)
+    font-size 12px
+
+.pagination
+  display flex
+  flex-wrap wrap
+  justify-content center
+  gap 5px
+  margin-top 27px
+  color var(--muted)
+
+  > *
+    display grid
+    place-items center
+    min-width 34px
+    min-height 36px
+    padding 2px 6px
+    font-size 14px
+
+  a:hover, .current
+    color var(--text)
+    text-decoration underline
+    text-underline-offset 4px
+
+.photo-grid
+  display grid
+  grid-template-columns repeat(auto-fit, minmax(min(100%, 200px), 1fr))
+  align-items start
+  gap 16px
+
+  p
+    display contents
+
+  img
+    width 100%
+    display block
+
+@media (max-width: 480px)
+  .post-row
+    grid-template-columns minmax(0, 1fr)
+    gap 2px
+    padding-block 8px

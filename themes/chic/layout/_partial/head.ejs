@@ -1,6 +1,5 @@
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <% if(config.author){ %>
     <meta name="author" content="<%- config.author %>">
@@ -41,14 +40,11 @@ if (is_archive()){
 <script>
     (function () {
         try {
-            var theme = localStorage.getItem('theme-preference') || 'dark';
-            var root = document.documentElement;
-            root.classList.remove('light-theme', 'dark-theme');
-            root.classList.add(theme === 'light' ? 'light-theme' : 'dark-theme');
-            root.setAttribute('data-theme', theme);
-        } catch (e) {
-            document.documentElement.classList.add('dark-theme');
-            document.documentElement.setAttribute('data-theme', 'dark');
+            if (localStorage.getItem('theme-preference') === 'light') {
+                document.documentElement.dataset.theme = 'light';
+            }
+        } catch (error) {
+            // Use the default palette when storage is unavailable.
         }
     })();
 </script>
@@ -64,7 +60,7 @@ if (is_archive()){
 <% if (theme.scripts !== undefined && theme.scripts.length > 0) { %>
     <!-- scripts list from _config.yml -->
     <% theme.scripts.forEach(url => { %>
-    <script src="<%- url_for(url) %>"></script>
+    <script src="<%- url_for(url) %>" defer></script>
     <% }); %>
 <% } %>
 <%# mathjax support %>
